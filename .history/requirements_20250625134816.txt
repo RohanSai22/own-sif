@@ -1,0 +1,41 @@
+# Core Dependencies
+rich>=13.0.0
+textual>=0.40.0
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# LLM Clients
+openai>=1.0.0
+groq>=0.4.0
+google-generativeai>=0.3.0
+
+# Web Tools (API-Free)
+duckduckgo-search>=3.9.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Docker Integration
+docker>=6.1.0
+
+# Data Processing
+datasets>=2.14.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# File System
+gitpython>=3.1.0
+pathlib2>=2.3.0
+
+# Code Analysis & Parsing
+ast-decompiler>=0.7.0
+astpretty>=3.0.0
+
+# Testing & Evaluation
+pytest>=7.4.0
+timeout-decorator>=0.5.0
+
+# Utilities
+tqdm>=4.65.0
+colorama>=0.4.6
+click>=8.1.0

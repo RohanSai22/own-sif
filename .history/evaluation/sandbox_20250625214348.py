@@ -4,7 +4,58 @@ import os
 import tempfile
 import shutil
 import subprocess
-from typing import Dict, List, Any, Optional
+from t# Fix Python compatibility issues for older repos
+RUN python3 -c "
+import sys
+import os
+import re
+
+# Function to fix Python 3.10+ compatibility issues
+def fix_python_compatibility():
+    for root, dirs, files in os.walk('.'):
+        for file in files:
+            if file.endswith('.py'):
+                filepath = os.path.join(root, file)
+                try:
+                    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+                        content = f.read()
+                    
+                    original_content = content
+                    
+                    # Fix collections.MutableSequence -> collections.abc.MutableSequence
+                    content = re.sub(r'collections\.MutableSequence', 'collections.abc.MutableSequence', content)
+                    content = re.sub(r'from collections import.*MutableSequence', 'from collections.abc import MutableSequence', content)
+                    
+                    # Fix setuptools.dep_util -> distutils.dep_util
+                    content = re.sub(r'from setuptools\.dep_util import', 'from distutils.dep_util import', content)
+                    content = re.sub(r'setuptools\.dep_util', 'distutils.dep_util', content)
+                    
+                    # Add necessary imports if missing
+                    if 'collections.abc.MutableSequence' in content and 'import collections.abc' not in content and 'from collections.abc import' not in content:
+                        # Add import at the top
+                        lines = content.split('\n')
+                        import_added = False
+                        for i, line in enumerate(lines):
+                            if line.strip().startswith('import ') or line.strip().startswith('from '):
+                                lines.insert(i, 'import collections.abc')
+                                import_added = True
+                                break
+                        if not import_added and lines:
+                            lines.insert(0, 'import collections.abc')
+                        content = '\n'.join(lines)
+                    
+                    # Only write if content changed
+                    if content != original_content:
+                        with open(filepath, 'w', encoding='utf-8') as f:
+                            f.write(content)
+                        print(f'Fixed compatibility issues in: {filepath}')
+                    
+                except Exception as e:
+                    print(f'Warning: Could not process {filepath}: {e}')
+                    continue
+
+fix_python_compatibility()
+"port Dict, List, Any, Optional
 import logging
 
 logger = logging.getLogger(__name__)

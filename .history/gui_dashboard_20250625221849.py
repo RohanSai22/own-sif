@@ -792,21 +792,12 @@ Please check the logs for more information.
             if self.tool_manager:
                 # Get actual tools from tool manager
                 try:
-                    tools_list = self.tool_manager.list_tools()
+                    tools = self.tool_manager.get_available_tools()
                     
-                    if tools_list:
-                        for tool in tools_list:
-                            tool_name = tool.get('name', 'Unknown')
-                            description = tool.get('description', 'No description available')
-                            usage_count = tool.get('usage_count', 0)
-                            is_generated = tool.get('is_generated', False)
-                            
+                    if tools:
+                        for tool_name, tool_info in tools.items():
+                            description = tool_info.get('description', 'No description available')
                             tool_display = f"{tool_name} - {description}"
-                            if usage_count > 0:
-                                tool_display += f" (used {usage_count}x)"
-                            if is_generated:
-                                tool_display += " [Generated]"
-                                
                             self.tools_listbox.insert(tk.END, tool_display)
                     else:
                         self.tools_listbox.insert(tk.END, "No tools available in tool manager")

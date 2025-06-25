@@ -1,0 +1,1148 @@
+2025-06-25 21:05:04,309 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-25 21:05:04,324 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-25 21:05:04,325 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-25 21:05:04,325 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-25 21:05:06,235 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-25 21:05:17,118 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-25 21:05:17,120 - archive.agent_archive - INFO - Loaded 0 generations from archive
+2025-06-25 21:05:17,139 - __main__ - INFO - Initializing Prometheus 2.0...
+2025-06-25 21:05:20,231 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-25 21:05:20,606 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 21:05:21,211 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-25 21:05:21,215 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-25 21:05:21,216 - agent.agent_core - INFO - Initialized agent agent_fe45a07d
+2025-06-25 21:05:21,217 - __main__ - INFO - Prometheus 2.0 initialization complete
+2025-06-25 21:05:21,218 - __main__ - INFO - Starting evolution iteration 1
+2025-06-25 21:05:21,221 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-25 21:05:21,226 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-25 21:05:48,333 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.04kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 3.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [ 1/12] FROM docker.io/library/python:3.11-slim@sha256:9e1912aab0a30bbd9488eb79063f68f42a68ab0946cbe98fecf197fe5b085506
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 82B 0.0s done
+#5 DONE 0.1s
+
+#6 [ 3/12] WORKDIR /workspace
+#6 CACHED
+
+#7 [ 7/12] COPY requirements.txt .
+#7 CACHED
+
+#8 [ 5/12] WORKDIR /workspace/repo
+#8 CACHED
+
+#9 [ 8/12] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [ 2/12] RUN apt-get update && apt-get install -y     git     build-essential     && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [ 4/12] RUN git clone https://github.com/astropy/astropy.git repo
+#11 CACHED
+
+#12 [ 6/12] RUN git checkout d16bfe05a744909de4b27f5875fe0d4ed41ce607
+#12 CACHED
+
+#13 [ 9/12] RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+#13 CACHED
+
+#14 [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+#14 2.402 Obtaining file:///workspace/repo
+#14 2.410   Installing build dependencies: started
+#14 19.75   Installing build dependencies: finished with status 'done'
+#14 19.76   Checking if build backend supports build_editable: started
+#14 20.04   Checking if build backend supports build_editable: finished with status 'done'
+#14 20.04   Getting requirements to build editable: started
+#14 20.70   Getting requirements to build editable: finished with status 'error'
+#14 20.71   error: subprocess-exited-with-error
+#14 20.71   
+#14 20.71   × Getting requirements to build editable did not run successfully.
+#14 20.71   │ exit code: 1
+#14 20.71   ╰─> [32 lines of output]
+#14 20.71       Traceback (most recent call last):
+#14 20.71         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+#14 20.71           main()
+#14 20.71         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+#14 20.71           json_out['return_val'] = hook(**hook_input['kwargs'])
+#14 20.71                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 20.71         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 132, in get_requires_for_build_editable
+#14 20.71           return hook(config_settings)
+#14 20.71                  ^^^^^^^^^^^^^^^^^^^^^
+#14 20.71         File "/tmp/pip-build-env-_julziys/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 473, in get_requires_for_build_editable
+#14 20.71           return self.get_requires_for_build_wheel(config_settings)
+#14 20.71                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 20.71         File "/tmp/pip-build-env-_julziys/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 331, in get_requires_for_build_wheel
+#14 20.71           return self._get_build_requires(config_settings, requirements=[])
+#14 20.71                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 20.71         File "/tmp/pip-build-env-_julziys/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 301, in _get_build_requires
+#14 20.71           self.run_setup()
+#14 20.71         File "/tmp/pip-build-env-_julziys/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 317, in run_setup
+#14 20.71           exec(code, locals())
+#14 20.71         File "<string>", line 68, in <module>
+#14 20.71         File "/tmp/pip-build-env-_julziys/overlay/lib/python3.11/site-packages/extension_helpers/_setup_helpers.py", line 68, in get_extensions
+#14 20.71           for setuppkg in iter_setup_packages(srcdir, packages):
+#14 20.71         File "/tmp/pip-build-env-_julziys/overlay/lib/python3.11/site-packages/extension_helpers/_setup_helpers.py", line 179, in iter_setup_packages
+#14 20.71           module = import_file(setup_package, name=packagename + ".setup_package")
+#14 20.71                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 20.71         File "/tmp/pip-build-env-_julziys/overlay/lib/python3.11/site-packages/extension_helpers/_utils.py", line 147, in import_file
+#14 20.71           loader.exec_module(mod)
+#14 20.71         File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+#14 20.71         File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+#14 20.71         File "astropy/wcs/setup_package.py", line 12, in <module>
+#14 20.71           from setuptools.dep_util import newer_group
+#14 20.71       ModuleNotFoundError: No module named 'setuptools.dep_util'
+#14 20.71       [end of output]
+#14 20.71   
+#14 20.71   note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 20.71 error: subprocess-exited-with-error
+#14 20.71 
+#14 20.71 × Getting requirements to build editable did not run successfully.
+#14 20.71 │ exit code: 1
+#14 20.71 ╰─> See above for output.
+#14 20.71 
+#14 20.71 note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 21.07 
+#14 21.07 [notice] A new release of pip is available: 24.0 -> 25.1.1
+#14 21.07 [notice] To update, run: pip install --upgrade pip
+#14 ERROR: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+------
+ > [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi:
+20.71 error: subprocess-exited-with-error
+20.71 
+20.71 × Getting requirements to build editable did not run successfully.
+20.71 │ exit code: 1
+20.71 ╰─> See above for output.
+20.71 
+20.71 note: This error originates from a subprocess, and is likely not a problem with pip.
+21.07 
+21.07 [notice] A new release of pip is available: 24.0 -> 25.1.1
+21.07 [notice] To update, run: pip install --upgrade pip
+------
+Dockerfile:23
+--------------------
+  21 |     # Install any repository-specific dependencies
+  22 |     RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+  23 | >>> RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+  24 |     RUN if [ -f pyproject.toml ]; then pip install --no-cache-dir -e .; fi
+  25 |     
+--------------------
+ERROR: failed to solve: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/saeywsy409pu2659o6si2oa7c
+
+2025-06-25 21:05:48,341 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-25 21:06:11,289 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.04kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [ 1/12] FROM docker.io/library/python:3.11-slim@sha256:9e1912aab0a30bbd9488eb79063f68f42a68ab0946cbe98fecf197fe5b085506
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 82B done
+#5 DONE 0.1s
+
+#6 [ 3/12] WORKDIR /workspace
+#6 CACHED
+
+#7 [ 4/12] RUN git clone https://github.com/astropy/astropy.git repo
+#7 CACHED
+
+#8 [ 2/12] RUN apt-get update && apt-get install -y     git     build-essential     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [ 6/12] RUN git checkout a5917978be39d13cd90b517e1de4e7a539ffaa48
+#9 CACHED
+
+#10 [ 7/12] COPY requirements.txt .
+#10 CACHED
+
+#11 [ 5/12] WORKDIR /workspace/repo
+#11 CACHED
+
+#12 [ 8/12] RUN pip install --no-cache-dir -r requirements.txt
+#12 CACHED
+
+#13 [ 9/12] RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+#13 CACHED
+
+#14 [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+#14 1.515 Obtaining file:///workspace/repo
+#14 1.523   Installing build dependencies: started
+#14 19.09   Installing build dependencies: finished with status 'done'
+#14 19.09   Checking if build backend supports build_editable: started
+#14 19.32   Checking if build backend supports build_editable: finished with status 'done'
+#14 19.33   Getting requirements to build editable: started
+#14 19.88   Getting requirements to build editable: finished with status 'error'
+#14 19.89   error: subprocess-exited-with-error
+#14 19.89   
+#14 19.89   × Getting requirements to build editable did not run successfully.
+#14 19.89   │ exit code: 1
+#14 19.89   ╰─> [32 lines of output]
+#14 19.89       Traceback (most recent call last):
+#14 19.89         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+#14 19.89           main()
+#14 19.89         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+#14 19.89           json_out['return_val'] = hook(**hook_input['kwargs'])
+#14 19.89                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 19.89         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 132, in get_requires_for_build_editable
+#14 19.89           return hook(config_settings)
+#14 19.89                  ^^^^^^^^^^^^^^^^^^^^^
+#14 19.89         File "/tmp/pip-build-env-cqni1ezi/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 473, in get_requires_for_build_editable
+#14 19.89           return self.get_requires_for_build_wheel(config_settings)
+#14 19.89                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 19.89         File "/tmp/pip-build-env-cqni1ezi/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 331, in get_requires_for_build_wheel
+#14 19.89           return self._get_build_requires(config_settings, requirements=[])
+#14 19.89                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 19.89         File "/tmp/pip-build-env-cqni1ezi/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 301, in _get_build_requires
+#14 19.89           self.run_setup()
+#14 19.89         File "/tmp/pip-build-env-cqni1ezi/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 317, in run_setup
+#14 19.89           exec(code, locals())
+#14 19.89         File "<string>", line 69, in <module>
+#14 19.89         File "/tmp/pip-build-env-cqni1ezi/overlay/lib/python3.11/site-packages/extension_helpers/_setup_helpers.py", line 68, in get_extensions
+#14 19.89           for setuppkg in iter_setup_packages(srcdir, packages):
+#14 19.89         File "/tmp/pip-build-env-cqni1ezi/overlay/lib/python3.11/site-packages/extension_helpers/_setup_helpers.py", line 179, in iter_setup_packages
+#14 19.89           module = import_file(setup_package, name=packagename + ".setup_package")
+#14 19.89                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 19.89         File "/tmp/pip-build-env-cqni1ezi/overlay/lib/python3.11/site-packages/extension_helpers/_utils.py", line 147, in import_file
+#14 19.89           loader.exec_module(mod)
+#14 19.89         File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+#14 19.89         File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+#14 19.89         File "astropy/wcs/setup_package.py", line 13, in <module>
+#14 19.89           from setuptools.dep_util import newer_group
+#14 19.89       ModuleNotFoundError: No module named 'setuptools.dep_util'
+#14 19.89       [end of output]
+#14 19.89   
+#14 19.89   note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 19.89 error: subprocess-exited-with-error
+#14 19.89 
+#14 19.89 × Getting requirements to build editable did not run successfully.
+#14 19.89 │ exit code: 1
+#14 19.89 ╰─> See above for output.
+#14 19.89 
+#14 19.89 note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 20.19 
+#14 20.19 [notice] A new release of pip is available: 24.0 -> 25.1.1
+#14 20.19 [notice] To update, run: pip install --upgrade pip
+#14 ERROR: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+------
+ > [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi:
+19.89 error: subprocess-exited-with-error
+19.89 
+19.89 × Getting requirements to build editable did not run successfully.
+19.89 │ exit code: 1
+19.89 ╰─> See above for output.
+19.89 
+19.89 note: This error originates from a subprocess, and is likely not a problem with pip.
+20.19 
+20.19 [notice] A new release of pip is available: 24.0 -> 25.1.1
+20.19 [notice] To update, run: pip install --upgrade pip
+------
+Dockerfile:23
+--------------------
+  21 |     # Install any repository-specific dependencies
+  22 |     RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+  23 | >>> RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+  24 |     RUN if [ -f pyproject.toml ]; then pip install --no-cache-dir -e .; fi
+  25 |     
+--------------------
+ERROR: failed to solve: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/gtdhatz5cbuxscov5qrzhlbn8
+
+2025-06-25 21:06:11,347 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_7269fa3e
+2025-06-25 21:06:31,440 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.04kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [ 1/12] FROM docker.io/library/python:3.11-slim@sha256:9e1912aab0a30bbd9488eb79063f68f42a68ab0946cbe98fecf197fe5b085506
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 82B 0.0s done
+#5 DONE 0.1s
+
+#6 [ 6/12] RUN git checkout 7269fa3e33e8d02485a647da91a5a2a60a06af61
+#6 CACHED
+
+#7 [ 4/12] RUN git clone https://github.com/astropy/astropy.git repo
+#7 CACHED
+
+#8 [ 5/12] WORKDIR /workspace/repo
+#8 CACHED
+
+#9 [ 3/12] WORKDIR /workspace
+#9 CACHED
+
+#10 [ 8/12] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [ 7/12] COPY requirements.txt .
+#11 CACHED
+
+#12 [ 2/12] RUN apt-get update && apt-get install -y     git     build-essential     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#13 [ 9/12] RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+#13 CACHED
+
+#14 [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+#14 1.547 Obtaining file:///workspace/repo
+#14 1.556   Installing build dependencies: started
+#14 16.18   Installing build dependencies: finished with status 'done'
+#14 16.19   Checking if build backend supports build_editable: started
+#14 16.42   Checking if build backend supports build_editable: finished with status 'done'
+#14 16.43   Getting requirements to build editable: started
+#14 17.06   Getting requirements to build editable: finished with status 'error'
+#14 17.07   error: subprocess-exited-with-error
+#14 17.07   
+#14 17.07   × Getting requirements to build editable did not run successfully.
+#14 17.07   │ exit code: 1
+#14 17.07   ╰─> [32 lines of output]
+#14 17.07       Traceback (most recent call last):
+#14 17.07         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+#14 17.07           main()
+#14 17.07         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+#14 17.07           json_out['return_val'] = hook(**hook_input['kwargs'])
+#14 17.07                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 17.07         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 132, in get_requires_for_build_editable
+#14 17.07           return hook(config_settings)
+#14 17.07                  ^^^^^^^^^^^^^^^^^^^^^
+#14 17.07         File "/tmp/pip-build-env-907pypdo/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 473, in get_requires_for_build_editable
+#14 17.07           return self.get_requires_for_build_wheel(config_settings)
+#14 17.07                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 17.07         File "/tmp/pip-build-env-907pypdo/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 331, in get_requires_for_build_wheel
+#14 17.07           return self._get_build_requires(config_settings, requirements=[])
+#14 17.07                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 17.07         File "/tmp/pip-build-env-907pypdo/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 301, in _get_build_requires
+#14 17.07           self.run_setup()
+#14 17.07         File "/tmp/pip-build-env-907pypdo/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 317, in run_setup
+#14 17.07           exec(code, locals())
+#14 17.07         File "<string>", line 69, in <module>
+#14 17.07         File "/tmp/pip-build-env-907pypdo/overlay/lib/python3.11/site-packages/extension_helpers/_setup_helpers.py", line 68, in get_extensions
+#14 17.07           for setuppkg in iter_setup_packages(srcdir, packages):
+#14 17.07         File "/tmp/pip-build-env-907pypdo/overlay/lib/python3.11/site-packages/extension_helpers/_setup_helpers.py", line 179, in iter_setup_packages
+#14 17.07           module = import_file(setup_package, name=packagename + ".setup_package")
+#14 17.07                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 17.07         File "/tmp/pip-build-env-907pypdo/overlay/lib/python3.11/site-packages/extension_helpers/_utils.py", line 147, in import_file
+#14 17.07           loader.exec_module(mod)
+#14 17.07         File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+#14 17.07         File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+#14 17.07         File "astropy/wcs/setup_package.py", line 13, in <module>
+#14 17.07           from setuptools.dep_util import newer_group
+#14 17.07       ModuleNotFoundError: No module named 'setuptools.dep_util'
+#14 17.07       [end of output]
+#14 17.07   
+#14 17.07   note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 17.08 error: subprocess-exited-with-error
+#14 17.08 
+#14 17.08 × Getting requirements to build editable did not run successfully.
+#14 17.08 │ exit code: 1
+#14 17.08 ╰─> See above for output.
+#14 17.08 
+#14 17.08 note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 17.40 
+#14 17.40 [notice] A new release of pip is available: 24.0 -> 25.1.1
+#14 17.40 [notice] To update, run: pip install --upgrade pip
+#14 ERROR: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+------
+ > [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi:
+17.08 error: subprocess-exited-with-error
+17.08 
+17.08 × Getting requirements to build editable did not run successfully.
+17.08 │ exit code: 1
+17.08 ╰─> See above for output.
+17.08 
+17.08 note: This error originates from a subprocess, and is likely not a problem with pip.
+17.40 
+17.40 [notice] A new release of pip is available: 24.0 -> 25.1.1
+17.40 [notice] To update, run: pip install --upgrade pip
+------
+Dockerfile:23
+--------------------
+  21 |     # Install any repository-specific dependencies
+  22 |     RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+  23 | >>> RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+  24 |     RUN if [ -f pyproject.toml ]; then pip install --no-cache-dir -e .; fi
+  25 |     
+--------------------
+ERROR: failed to solve: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/lwwalgw6w6kj28onx12gdjsqt
+
+2025-06-25 21:06:31,446 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_0_20250625_210631.json
+2025-06-25 21:06:31,449 - tools.base_tools - INFO - Read file: agent/agent_core.py (26367 chars)
+2025-06-25 21:06:31,449 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:06:31,451 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-25 21:06:31,451 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:06:31,457 - archive.agent_archive - INFO - Archived agent agent_fe45a07d (generation 0)
+2025-06-25 21:06:31,459 - tools.base_tools - INFO - Read file: agent/agent_core.py (26367 chars)
+2025-06-25 21:06:31,460 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:06:31,460 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-25 21:06:31,461 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:06:31,467 - agent.agent_core - ERROR - Error in self-reflection: '\n    "analysis"'
+2025-06-25 21:06:32,492 - __main__ - INFO - Starting evolution iteration 2
+2025-06-25 21:06:32,529 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 3-5)
+2025-06-25 21:06:32,536 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_b16c7d12
+2025-06-25 21:06:52,473 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.04kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [ 1/12] FROM docker.io/library/python:3.11-slim@sha256:9e1912aab0a30bbd9488eb79063f68f42a68ab0946cbe98fecf197fe5b085506
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 82B done
+#5 DONE 0.1s
+
+#6 [ 2/12] RUN apt-get update && apt-get install -y     git     build-essential     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [ 7/12] COPY requirements.txt .
+#7 CACHED
+
+#8 [ 4/12] RUN git clone https://github.com/astropy/astropy.git repo
+#8 CACHED
+
+#9 [ 6/12] RUN git checkout b16c7d12ccbc7b2d20364b89fb44285bcbfede54
+#9 CACHED
+
+#10 [ 3/12] WORKDIR /workspace
+#10 CACHED
+
+#11 [ 5/12] WORKDIR /workspace/repo
+#11 CACHED
+
+#12 [ 8/12] RUN pip install --no-cache-dir -r requirements.txt
+#12 CACHED
+
+#13 [ 9/12] RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+#13 CACHED
+
+#14 [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+#14 1.434 Obtaining file:///workspace/repo
+#14 1.443   Installing build dependencies: started
+#14 16.14   Installing build dependencies: finished with status 'done'
+#14 16.15   Checking if build backend supports build_editable: started
+#14 16.37   Checking if build backend supports build_editable: finished with status 'done'
+#14 16.37   Getting requirements to build editable: started
+#14 16.89   Getting requirements to build editable: finished with status 'error'
+#14 16.90   error: subprocess-exited-with-error
+#14 16.90   
+#14 16.90   × Getting requirements to build editable did not run successfully.
+#14 16.90   │ exit code: 1
+#14 16.90   ╰─> [32 lines of output]
+#14 16.90       Traceback (most recent call last):
+#14 16.90         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+#14 16.90           main()
+#14 16.90         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+#14 16.90           json_out['return_val'] = hook(**hook_input['kwargs'])
+#14 16.90                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 16.90         File "/usr/local/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 132, in get_requires_for_build_editable
+#14 16.90           return hook(config_settings)
+#14 16.90                  ^^^^^^^^^^^^^^^^^^^^^
+#14 16.90         File "/tmp/pip-build-env-4a7g1_yr/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 473, in get_requires_for_build_editable
+#14 16.90           return self.get_requires_for_build_wheel(config_settings)
+#14 16.90                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 16.90         File "/tmp/pip-build-env-4a7g1_yr/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 331, in get_requires_for_build_wheel
+#14 16.90           return self._get_build_requires(config_settings, requirements=[])
+#14 16.90                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 16.90         File "/tmp/pip-build-env-4a7g1_yr/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 301, in _get_build_requires
+#14 16.90           self.run_setup()
+#14 16.90         File "/tmp/pip-build-env-4a7g1_yr/overlay/lib/python3.11/site-packages/setuptools/build_meta.py", line 317, in run_setup
+#14 16.90           exec(code, locals())
+#14 16.90         File "<string>", line 69, in <module>
+#14 16.90         File "/tmp/pip-build-env-4a7g1_yr/overlay/lib/python3.11/site-packages/extension_helpers/_setup_helpers.py", line 68, in get_extensions
+#14 16.90           for setuppkg in iter_setup_packages(srcdir, packages):
+#14 16.90         File "/tmp/pip-build-env-4a7g1_yr/overlay/lib/python3.11/site-packages/extension_helpers/_setup_helpers.py", line 179, in iter_setup_packages
+#14 16.90           module = import_file(setup_package, name=packagename + ".setup_package")
+#14 16.90                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 16.90         File "/tmp/pip-build-env-4a7g1_yr/overlay/lib/python3.11/site-packages/extension_helpers/_utils.py", line 147, in import_file
+#14 16.90           loader.exec_module(mod)
+#14 16.90         File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+#14 16.90         File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+#14 16.90         File "astropy/wcs/setup_package.py", line 13, in <module>
+#14 16.90           from setuptools.dep_util import newer_group
+#14 16.90       ModuleNotFoundError: No module named 'setuptools.dep_util'
+#14 16.90       [end of output]
+#14 16.90   
+#14 16.90   note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 16.90 error: subprocess-exited-with-error
+#14 16.90 
+#14 16.90 × Getting requirements to build editable did not run successfully.
+#14 16.90 │ exit code: 1
+#14 16.90 ╰─> See above for output.
+#14 16.90 
+#14 16.90 note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 17.19 
+#14 17.19 [notice] A new release of pip is available: 24.0 -> 25.1.1
+#14 17.19 [notice] To update, run: pip install --upgrade pip
+#14 ERROR: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+------
+ > [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi:
+16.90 error: subprocess-exited-with-error
+16.90 
+16.90 × Getting requirements to build editable did not run successfully.
+16.90 │ exit code: 1
+16.90 ╰─> See above for output.
+16.90 
+16.90 note: This error originates from a subprocess, and is likely not a problem with pip.
+17.19 
+17.19 [notice] A new release of pip is available: 24.0 -> 25.1.1
+17.19 [notice] To update, run: pip install --upgrade pip
+------
+Dockerfile:23
+--------------------
+  21 |     # Install any repository-specific dependencies
+  22 |     RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+  23 | >>> RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+  24 |     RUN if [ -f pyproject.toml ]; then pip install --no-cache-dir -e .; fi
+  25 |     
+--------------------
+ERROR: failed to solve: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/zfeota4nrxk0kf2g6gclc8gew
+
+2025-06-25 21:06:52,484 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_c76af9ed
+2025-06-25 21:07:12,579 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.04kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.3s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [ 1/12] FROM docker.io/library/python:3.11-slim@sha256:9e1912aab0a30bbd9488eb79063f68f42a68ab0946cbe98fecf197fe5b085506
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 82B done
+#5 DONE 0.1s
+
+#6 [ 2/12] RUN apt-get update && apt-get install -y     git     build-essential     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [ 4/12] RUN git clone https://github.com/astropy/astropy.git repo
+#7 CACHED
+
+#8 [ 5/12] WORKDIR /workspace/repo
+#8 CACHED
+
+#9 [ 8/12] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [ 7/12] COPY requirements.txt .
+#10 CACHED
+
+#11 [ 3/12] WORKDIR /workspace
+#11 CACHED
+
+#12 [ 6/12] RUN git checkout c76af9ed6bb89bfba45b9f5bc1e635188278e2fa
+#12 CACHED
+
+#13 [ 9/12] RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+#13 CACHED
+
+#14 [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+#14 1.481 Obtaining file:///workspace/repo
+#14 1.484   Preparing metadata (setup.py): started
+#14 7.522   Preparing metadata (setup.py): finished with status 'done'
+#14 8.201 Collecting numpy>=1.10.0 (from astropy==3.0.dev20979)
+#14 8.390   Downloading numpy-2.3.1-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (62 kB)
+#14 8.476      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.1/62.1 kB 643.3 kB/s eta 0:00:00
+#14 8.549 Downloading numpy-2.3.1-cp311-cp311-manylinux_2_28_x86_64.whl (16.9 MB)
+#14 12.28    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 4.6 MB/s eta 0:00:00
+#14 12.43 Installing collected packages: numpy, astropy
+#14 15.47   Running setup.py develop for astropy
+#14 16.92     error: subprocess-exited-with-error
+#14 16.92     
+#14 16.92     × python setup.py develop did not run successfully.
+#14 16.92     │ exit code: 1
+#14 16.92     ╰─> [27 lines of output]
+#14 16.92         Traceback (most recent call last):
+#14 16.92           File "<string>", line 2, in <module>
+#14 16.92           File "<pip-setuptools-caller>", line 34, in <module>
+#14 16.92           File "/workspace/repo/setup.py", line 42, in <module>
+#14 16.92             package_info = get_package_info()
+#14 16.92                            ^^^^^^^^^^^^^^^^^^
+#14 16.92           File "/workspace/repo/astropy_helpers/astropy_helpers/setup_helpers.py", line 424, in get_package_info
+#14 16.92             ext_modules.extend(setuppkg.get_extensions())
+#14 16.92                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 16.92           File "astropy/wcs/setup_package.py", line 239, in get_extensions
+#14 16.92             generate_c_docstrings()
+#14 16.92           File "astropy/wcs/setup_package.py", line 116, in generate_c_docstrings
+#14 16.92             from astropy.wcs import docstrings
+#14 16.92           File "/workspace/repo/astropy/wcs/__init__.py", line 29, in <module>
+#14 16.92             from .wcs import *
+#14 16.92           File "/workspace/repo/astropy/wcs/wcs.py", line 47, in <module>
+#14 16.92             from ..io import fits
+#14 16.92           File "/workspace/repo/astropy/io/fits/__init__.py", line 70, in <module>
+#14 16.92             from . import convenience
+#14 16.92           File "/workspace/repo/astropy/io/fits/convenience.py", line 64, in <module>
+#14 16.92             from .diff import FITSDiff, HDUDiff
+#14 16.92           File "/workspace/repo/astropy/io/fits/diff.py", line 31, in <module>
+#14 16.92             from .header import Header
+#14 16.92           File "/workspace/repo/astropy/io/fits/header.py", line 1904, in <module>
+#14 16.92             collections.MutableSequence.register(Header)
+#14 16.92             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 16.92         AttributeError: module 'collections' has no attribute 'MutableSequence'
+#14 16.92         [end of output]
+#14 16.92     
+#14 16.92     note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 16.93 error: subprocess-exited-with-error
+#14 16.93 
+#14 16.93 × python setup.py develop did not run successfully.
+#14 16.93 │ exit code: 1
+#14 16.93 ╰─> [27 lines of output]
+#14 16.93     Traceback (most recent call last):
+#14 16.93       File "<string>", line 2, in <module>
+#14 16.93       File "<pip-setuptools-caller>", line 34, in <module>
+#14 16.93       File "/workspace/repo/setup.py", line 42, in <module>
+#14 16.93         package_info = get_package_info()
+#14 16.93                        ^^^^^^^^^^^^^^^^^^
+#14 16.93       File "/workspace/repo/astropy_helpers/astropy_helpers/setup_helpers.py", line 424, in get_package_info
+#14 16.93         ext_modules.extend(setuppkg.get_extensions())
+#14 16.93                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 16.93       File "astropy/wcs/setup_package.py", line 239, in get_extensions
+#14 16.93         generate_c_docstrings()
+#14 16.93       File "astropy/wcs/setup_package.py", line 116, in generate_c_docstrings
+#14 16.93         from astropy.wcs import docstrings
+#14 16.93       File "/workspace/repo/astropy/wcs/__init__.py", line 29, in <module>
+#14 16.93         from .wcs import *
+#14 16.93       File "/workspace/repo/astropy/wcs/wcs.py", line 47, in <module>
+#14 16.93         from ..io import fits
+#14 16.93       File "/workspace/repo/astropy/io/fits/__init__.py", line 70, in <module>
+#14 16.93         from . import convenience
+#14 16.93       File "/workspace/repo/astropy/io/fits/convenience.py", line 64, in <module>
+#14 16.93         from .diff import FITSDiff, HDUDiff
+#14 16.93       File "/workspace/repo/astropy/io/fits/diff.py", line 31, in <module>
+#14 16.93         from .header import Header
+#14 16.93       File "/workspace/repo/astropy/io/fits/header.py", line 1904, in <module>
+#14 16.93         collections.MutableSequence.register(Header)
+#14 16.93         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 16.93     AttributeError: module 'collections' has no attribute 'MutableSequence'
+#14 16.93     [end of output]
+#14 16.93 
+#14 16.93 note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 17.44 
+#14 17.44 [notice] A new release of pip is available: 24.0 -> 25.1.1
+#14 17.44 [notice] To update, run: pip install --upgrade pip
+#14 ERROR: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+------
+ > [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi:
+16.93       File "/workspace/repo/astropy/io/fits/header.py", line 1904, in <module>
+16.93         collections.MutableSequence.register(Header)
+16.93         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+16.93     AttributeError: module 'collections' has no attribute 'MutableSequence'
+16.93     [end of output]
+16.93 
+16.93 note: This error originates from a subprocess, and is likely not a problem with pip.
+17.44 
+17.44 [notice] A new release of pip is available: 24.0 -> 25.1.1
+17.44 [notice] To update, run: pip install --upgrade pip
+------
+Dockerfile:23
+--------------------
+  21 |     # Install any repository-specific dependencies
+  22 |     RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+  23 | >>> RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+  24 |     RUN if [ -f pyproject.toml ]; then pip install --no-cache-dir -e .; fi
+  25 |     
+--------------------
+ERROR: failed to solve: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/bzasazonjljrnmaq28ge50sqp
+
+2025-06-25 21:07:12,591 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d5bd3f68
+2025-06-25 21:07:33,058 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.04kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [ 1/12] FROM docker.io/library/python:3.11-slim@sha256:9e1912aab0a30bbd9488eb79063f68f42a68ab0946cbe98fecf197fe5b085506
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 82B done
+#5 DONE 0.1s
+
+#6 [ 3/12] WORKDIR /workspace
+#6 CACHED
+
+#7 [ 7/12] COPY requirements.txt .
+#7 CACHED
+
+#8 [ 4/12] RUN git clone https://github.com/astropy/astropy.git repo
+#8 CACHED
+
+#9 [ 6/12] RUN git checkout d5bd3f68bb6d5ce3a61bdce9883ee750d1afade5
+#9 CACHED
+
+#10 [ 8/12] RUN pip install --no-cache-dir -r requirements.txt
+#10 CACHED
+
+#11 [ 5/12] WORKDIR /workspace/repo
+#11 CACHED
+
+#12 [ 2/12] RUN apt-get update && apt-get install -y     git     build-essential     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#13 [ 9/12] RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+#13 CACHED
+
+#14 [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+#14 1.501 Obtaining file:///workspace/repo
+#14 1.503   Preparing metadata (setup.py): started
+#14 7.013   Preparing metadata (setup.py): finished with status 'done'
+#14 7.683 Collecting numpy>=1.13.0 (from astropy==3.1.dev22336)
+#14 7.885   Downloading numpy-2.3.1-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (62 kB)
+#14 7.949      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.1/62.1 kB 881.9 kB/s eta 0:00:00
+#14 8.013 Downloading numpy-2.3.1-cp311-cp311-manylinux_2_28_x86_64.whl (16.9 MB)
+#14 13.05    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 3.4 MB/s eta 0:00:00
+#14 13.19 Installing collected packages: numpy, astropy
+#14 16.18   Running setup.py develop for astropy
+#14 17.67     error: subprocess-exited-with-error
+#14 17.67     
+#14 17.67     × python setup.py develop did not run successfully.
+#14 17.67     │ exit code: 1
+#14 17.67     ╰─> [27 lines of output]
+#14 17.67         Traceback (most recent call last):
+#14 17.67           File "<string>", line 2, in <module>
+#14 17.67           File "<pip-setuptools-caller>", line 34, in <module>
+#14 17.67           File "/workspace/repo/setup.py", line 51, in <module>
+#14 17.67             package_info = get_package_info()
+#14 17.67                            ^^^^^^^^^^^^^^^^^^
+#14 17.67           File "/workspace/repo/astropy_helpers/astropy_helpers/setup_helpers.py", line 388, in get_package_info
+#14 17.67             ext_modules.extend(setuppkg.get_extensions())
+#14 17.67                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 17.67           File "astropy/wcs/setup_package.py", line 239, in get_extensions
+#14 17.67             generate_c_docstrings()
+#14 17.67           File "astropy/wcs/setup_package.py", line 116, in generate_c_docstrings
+#14 17.67             from astropy.wcs import docstrings
+#14 17.67           File "/workspace/repo/astropy/wcs/__init__.py", line 29, in <module>
+#14 17.67             from .wcs import *
+#14 17.67           File "/workspace/repo/astropy/wcs/wcs.py", line 47, in <module>
+#14 17.67             from ..io import fits
+#14 17.67           File "/workspace/repo/astropy/io/fits/__init__.py", line 70, in <module>
+#14 17.67             from . import convenience
+#14 17.67           File "/workspace/repo/astropy/io/fits/convenience.py", line 64, in <module>
+#14 17.67             from .diff import FITSDiff, HDUDiff
+#14 17.67           File "/workspace/repo/astropy/io/fits/diff.py", line 25, in <module>
+#14 17.67             from .header import Header
+#14 17.67           File "/workspace/repo/astropy/io/fits/header.py", line 1907, in <module>
+#14 17.67             collections.MutableSequence.register(Header)
+#14 17.67             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 17.67         AttributeError: module 'collections' has no attribute 'MutableSequence'
+#14 17.67         [end of output]
+#14 17.67     
+#14 17.67     note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 17.68 error: subprocess-exited-with-error
+#14 17.68 
+#14 17.68 × python setup.py develop did not run successfully.
+#14 17.68 │ exit code: 1
+#14 17.68 ╰─> [27 lines of output]
+#14 17.68     Traceback (most recent call last):
+#14 17.68       File "<string>", line 2, in <module>
+#14 17.68       File "<pip-setuptools-caller>", line 34, in <module>
+#14 17.68       File "/workspace/repo/setup.py", line 51, in <module>
+#14 17.68         package_info = get_package_info()
+#14 17.68                        ^^^^^^^^^^^^^^^^^^
+#14 17.68       File "/workspace/repo/astropy_helpers/astropy_helpers/setup_helpers.py", line 388, in get_package_info
+#14 17.68         ext_modules.extend(setuppkg.get_extensions())
+#14 17.68                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 17.68       File "astropy/wcs/setup_package.py", line 239, in get_extensions
+#14 17.68         generate_c_docstrings()
+#14 17.68       File "astropy/wcs/setup_package.py", line 116, in generate_c_docstrings
+#14 17.68         from astropy.wcs import docstrings
+#14 17.68       File "/workspace/repo/astropy/wcs/__init__.py", line 29, in <module>
+#14 17.68         from .wcs import *
+#14 17.68       File "/workspace/repo/astropy/wcs/wcs.py", line 47, in <module>
+#14 17.68         from ..io import fits
+#14 17.68       File "/workspace/repo/astropy/io/fits/__init__.py", line 70, in <module>
+#14 17.68         from . import convenience
+#14 17.68       File "/workspace/repo/astropy/io/fits/convenience.py", line 64, in <module>
+#14 17.68         from .diff import FITSDiff, HDUDiff
+#14 17.68       File "/workspace/repo/astropy/io/fits/diff.py", line 25, in <module>
+#14 17.68         from .header import Header
+#14 17.68       File "/workspace/repo/astropy/io/fits/header.py", line 1907, in <module>
+#14 17.68         collections.MutableSequence.register(Header)
+#14 17.68         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#14 17.68     AttributeError: module 'collections' has no attribute 'MutableSequence'
+#14 17.68     [end of output]
+#14 17.68 
+#14 17.68 note: This error originates from a subprocess, and is likely not a problem with pip.
+#14 18.06 
+#14 18.06 [notice] A new release of pip is available: 24.0 -> 25.1.1
+#14 18.06 [notice] To update, run: pip install --upgrade pip
+#14 ERROR: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+------
+ > [10/12] RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi:
+17.68       File "/workspace/repo/astropy/io/fits/header.py", line 1907, in <module>
+17.68         collections.MutableSequence.register(Header)
+17.68         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+17.68     AttributeError: module 'collections' has no attribute 'MutableSequence'
+17.68     [end of output]
+17.68 
+17.68 note: This error originates from a subprocess, and is likely not a problem with pip.
+18.06 
+18.06 [notice] A new release of pip is available: 24.0 -> 25.1.1
+18.06 [notice] To update, run: pip install --upgrade pip
+------
+Dockerfile:23
+--------------------
+  21 |     # Install any repository-specific dependencies
+  22 |     RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+  23 | >>> RUN if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi
+  24 |     RUN if [ -f pyproject.toml ]; then pip install --no-cache-dir -e .; fi
+  25 |     
+--------------------
+ERROR: failed to solve: process "/bin/sh -c if [ -f setup.py ]; then pip install --no-cache-dir -e .; fi" did not complete successfully: exit code: 1
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/rq4p35t23zh73tg70ajnvl3lw
+
+2025-06-25 21:07:33,065 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_3_20250625_210733.json
+2025-06-25 21:07:33,067 - tools.base_tools - INFO - Read file: agent/agent_core.py (26367 chars)
+2025-06-25 21:07:33,068 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:07:33,069 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-25 21:07:33,069 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:07:33,073 - archive.agent_archive - INFO - Archived agent agent_fe45a07d (generation 0)
+2025-06-25 21:07:33,076 - tools.base_tools - INFO - Read file: agent/agent_core.py (26367 chars)
+2025-06-25 21:07:33,077 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:07:33,077 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-25 21:07:33,078 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:07:33,083 - agent.agent_core - ERROR - Error in self-reflection: '\n    "analysis"'
+2025-06-25 21:07:34,090 - __main__ - INFO - Starting evolution iteration 3
+2025-06-25 21:07:34,095 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 6-8)
+2025-06-25 21:07:34,104 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_e7fd69d0
+2025-06-25 21:07:36,570 - evaluation.sandbox - INFO - Successfully built image: prometheus_eval_e7fd69d0
+2025-06-25 21:07:40,804 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 21:07:41,777 - evaluation.sandbox - INFO - Started container: prometheus_eval_8840
+2025-06-25 21:08:21,273 - evaluation.sandbox - WARNING - Failed to cleanup container prometheus_eval_8840: Command '['docker', 'stop', 'prometheus_eval_8840']' timed out after 10 seconds
+2025-06-25 21:08:47,345 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_bceadd27
+2025-06-25 21:08:50,036 - evaluation.sandbox - INFO - Successfully built image: prometheus_eval_bceadd27
+2025-06-25 21:08:53,368 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 21:08:54,176 - evaluation.sandbox - INFO - Started container: prometheus_eval_8840
+2025-06-25 21:09:10,795 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 21:09:11,823 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 21:09:11,827 - evaluation.sandbox - INFO - Cleaned up container: prometheus_eval_8840
+2025-06-25 21:09:11,940 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_ef082ebb
+2025-06-25 21:09:12,368 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 21:09:12,372 - evaluation.sandbox - ERROR - Failed to build image: ERROR: listing workers for Build: failed to list workers: Canceled: context canceled
+
+2025-06-25 21:09:12,385 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_6_20250625_210912.json
+2025-06-25 21:09:12,391 - __main__ - INFO - Shutting down Prometheus 2.0...
+2025-06-25 21:09:12,398 - tools.base_tools - INFO - Read file: agent/agent_core.py (26367 chars)
+2025-06-25 21:09:12,399 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:09:12,400 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-25 21:09:12,400 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 21:09:12,404 - archive.agent_archive - INFO - Archived agent agent_fe45a07d (generation 0)
+2025-06-25 21:09:12,459 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 21:09:12,641 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 21:09:12,797 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 21:09:13,096 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 21:09:13,293 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 21:09:13,450 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:02:27,941 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-25 22:02:27,969 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-25 22:02:27,970 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-25 22:02:27,970 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-25 22:02:29,377 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-25 22:02:38,751 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-25 22:02:38,753 - archive.agent_archive - WARNING - Failed to load generation agent_fe45a07d.json: AgentGeneration.__init__() got an unexpected keyword argument 'mutation_changes'
+2025-06-25 22:02:38,754 - archive.agent_archive - INFO - Loaded 0 generations from archive
+2025-06-25 22:02:38,756 - __main__ - INFO - Initializing Prometheus 2.0...
+2025-06-25 22:02:40,118 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-25 22:02:40,518 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 22:02:41,215 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-25 22:02:41,218 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-25 22:02:41,219 - agent.agent_core - INFO - Initialized agent agent_cdb10810
+2025-06-25 22:02:41,220 - __main__ - INFO - Prometheus 2.0 initialization complete
+2025-06-25 22:02:41,221 - __main__ - INFO - Starting evolution iteration 1
+2025-06-25 22:02:41,223 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-25 22:02:41,227 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-25 22:04:14,460 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-25 22:04:14,476 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-25 22:04:14,477 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-25 22:04:14,477 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-25 22:04:15,941 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-25 22:04:27,647 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-25 22:04:27,648 - archive.agent_archive - WARNING - Failed to load generation agent_fe45a07d.json: AgentGeneration.__init__() got an unexpected keyword argument 'mutation_changes'
+2025-06-25 22:04:27,648 - archive.agent_archive - INFO - Loaded 0 generations from archive
+2025-06-25 22:04:27,649 - __main__ - INFO - Initializing Prometheus 2.0...
+2025-06-25 22:04:29,150 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-25 22:04:29,689 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 22:04:30,639 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-25 22:04:30,641 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-25 22:04:30,641 - agent.agent_core - INFO - Initialized agent agent_e67a63f0
+2025-06-25 22:04:30,641 - __main__ - INFO - Prometheus 2.0 initialization complete
+2025-06-25 22:04:30,642 - __main__ - INFO - Starting evolution iteration 1
+2025-06-25 22:04:30,643 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-25 22:04:30,647 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-25 22:05:59,982 - evaluation.sandbox - INFO - Successfully built image: prometheus_eval_d16bfe05
+2025-06-25 22:06:00,002 - evaluation.sandbox - INFO - Successfully built image: prometheus_eval_d16bfe05
+2025-06-25 22:06:03,658 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 22:06:03,713 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 22:06:04,527 - evaluation.sandbox - INFO - Started container: prometheus_eval_19744
+2025-06-25 22:06:04,543 - evaluation.sandbox - INFO - Started container: prometheus_eval_26164
+2025-06-25 22:06:16,396 - evaluation.sandbox - WARNING - Failed to cleanup container prometheus_eval_26164: Command '['docker', 'stop', 'prometheus_eval_26164']' timed out after 10 seconds
+2025-06-25 22:06:16,397 - evaluation.sandbox - WARNING - Failed to cleanup container prometheus_eval_19744: Command '['docker', 'stop', 'prometheus_eval_19744']' timed out after 10 seconds
+2025-06-25 22:06:16,406 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-25 22:06:16,407 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-25 22:06:50,636 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:06:50,638 - evaluation.sandbox - ERROR - Failed to build image: 2025/06/25 22:06:16 http2: server: error reading preface from client //./pipe/dockerDesktopLinuxEngine: file has already been closed
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.41kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [ 1/15] FROM docker.io/library/python:3.11-slim@sha256:9e1912aab0a30bbd9488eb79063f68f42a68ab0946cbe98fecf197fe5b085506
+#4 DONE 0.0s
+
+#5 [ 5/15] RUN git clone https://github.com/astropy/astropy.git repo
+#5 CACHED
+
+#6 [ 4/15] WORKDIR /workspace
+#6 CACHED
+
+#7 [ 3/15] RUN pip install --upgrade pip setuptools wheel
+#7 CACHED
+
+#8 [ 2/15] RUN apt-get update && apt-get install -y     git     build-essential     python3-dev     pkg-config     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [ 6/15] WORKDIR /workspace/repo
+#9 CACHED
+
+#10 [ 7/15] RUN git checkout a5917978be39d13cd90b517e1de4e7a539ffaa48
+#10 ...
+
+#11 [internal] load build context
+#11 transferring context: 82B done
+#11 DONE 0.1s
+
+#10 [ 7/15] RUN git checkout a5917978be39d13cd90b517e1de4e7a539ffaa48
+#10 1.062 Note: switching to 'a5917978be39d13cd90b517e1de4e7a539ffaa48'.
+#10 1.062 
+#10 1.062 You are in 'detached HEAD' state. You can look around, make experimental
+#10 1.062 changes and commit them, and you can discard any commits you make in this
+#10 1.062 state without impacting any branches by switching back to a branch.
+#10 1.062 
+#10 1.062 If you want to create a new branch to retain commits you create, you may
+#10 1.062 do so (now or later) by using -c with the switch command. Example:
+#10 1.062 
+#10 1.062   git switch -c <new-branch-name>
+#10 1.062 
+#10 1.062 Or undo this operation with:
+#10 1.062 
+#10 1.062   git switch -
+#10 1.062 
+#10 1.062 Turn off this advice by setting config variable advice.detachedHead to false
+#10 1.062 
+#10 1.062 HEAD is now at a5917978be Merge pull request #14172 from astropy/pre-commit-ci-update-config
+#10 DONE 1.2s
+
+#12 [ 8/15] RUN if [ -f setup.py ]; then     find . -name "*.py" -type f -exec sed -i 's/collections\.MutableSequence/collections.abc.MutableSequence/g' {} ; 2>/dev/null || true;     find . -name "*.py" -type f -exec sed -i 's/from setuptools\.dep_util import/from distutils.dep_util import/g' {} ; 2>/dev/null || true;     find . -name "*.py" -type f -exec sed -i 's/setuptools\.dep_util/distutils.dep_util/g' {} ; 2>/dev/null || true; fi
+#12 DONE 8.7s
+
+#13 [ 9/15] COPY requirements.txt .
+#13 DONE 0.1s
+
+#14 [10/15] RUN pip install --no-cache-dir -r requirements.txt
+#14 1.089 Collecting pytest (from -r requirements.txt (line 1))
+#14 1.456   Downloading pytest-8.4.1-py3-none-any.whl.metadata (7.7 kB)
+#14 1.542 Collecting pytest-xvfb (from -r requirements.txt (line 2))
+#14 1.600   Downloading pytest_xvfb-3.1.1-py3-none-any.whl.metadata (5.0 kB)
+#14 2.158 Collecting coverage (from -r requirements.txt (line 3))
+#14 2.229   Downloading coverage-7.9.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (8.9 kB)
+#14 2.305 Collecting requests (from -r requirements.txt (line 4))
+#14 2.349   Downloading requests-2.32.4-py3-none-any.whl.metadata (4.9 kB)
+#14 2.430 Collecting iniconfig>=1 (from pytest->-r requirements.txt (line 1))
+#14 2.474   Downloading iniconfig-2.1.0-py3-none-any.whl.metadata (2.7 kB)
+#14 2.562 Collecting packaging>=20 (from pytest->-r requirements.txt (line 1))
+#14 2.612   Downloading packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+#14 2.664 Collecting pluggy<2,>=1.5 (from pytest->-r requirements.txt (line 1))
+#14 2.713   Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+#14 2.800 Collecting pygments>=2.7.2 (from pytest->-r requirements.txt (line 1))
+#14 2.846   Downloading pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+#14 2.946 Collecting pyvirtualdisplay>=1.3 (from pytest-xvfb->-r requirements.txt (line 2))
+#14 3.000   Downloading PyVirtualDisplay-3.0-py3-none-any.whl.metadata (943 bytes)
+#14 3.158 Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 4))
+#14 3.216   Downloading charset_normalizer-3.4.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (35 kB)
+#14 3.320 Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 4))
+#14 3.400   Downloading idna-3.10-py3-none-any.whl.metadata (10 kB)
+#14 3.526 Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 4))
+#14 3.592   Downloading urllib3-2.5.0-py3-none-any.whl.metadata (6.5 kB)
+#14 3.666 Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 4))
+#14 3.715   Downloading certifi-2025.6.15-py3-none-any.whl.metadata (2.4 kB)
+#14 3.778 Downloading pytest-8.4.1-py3-none-any.whl (365 kB)
+#14 3.910 Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+#14 3.976 Downloading pytest_xvfb-3.1.1-py3-none-any.whl (5.9 kB)
+#14 4.054 Downloading coverage-7.9.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (244 kB)
+#14 4.451 Downloading requests-2.32.4-py3-none-any.whl (64 kB)
+#14 4.508 Downloading charset_normalizer-3.4.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (147 kB)
+#14 4.937 Downloading idna-3.10-py3-none-any.whl (70 kB)
+#14 5.024 Downloading urllib3-2.5.0-py3-none-any.whl (129 kB)
+#14 5.229 Downloading certifi-2025.6.15-py3-none-any.whl (157 kB)
+#14 5.444 Downloading iniconfig-2.1.0-py3-none-any.whl (6.0 kB)
+#14 5.535 Downloading packaging-25.0-py3-none-any.whl (66 kB)
+#14 5.608 Downloading pygments-2.19.2-py3-none-any.whl (1.2 MB)
+#14 6.548    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 1.4 MB/s eta 0:00:00
+#14 6.597 Downloading PyVirtualDisplay-3.0-py3-none-any.whl (15 kB)
+#14 6.674 Installing collected packages: pyvirtualdisplay, urllib3, pygments, pluggy, packaging, iniconfig, idna, coverage, charset_normalizer, certifi, requests, pytest, pytest-xvfb
+#14 8.011 
+#14 8.013 Successfully installed certifi-2025.6.15 charset_normalizer-3.4.2 coverage-7.9.1 idna-3.10 iniconfig-2.1.0 packaging-25.0 pluggy-1.6.0 pygments-2.19.2 pytest-8.4.1 pytest-xvfb-3.1.1 pyvirtualdisplay-3.0 requests-2.32.4 urllib3-2.5.0
+#14 8.014 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#14 DONE 8.6s
+
+#15 [11/15] RUN if [ -f requirements.txt ]; then     pip install --no-cache-dir -r requirements.txt || true; fi
+#15 0.796 Requirement already satisfied: pytest in /usr/local/lib/python3.11/site-packages (from -r requirements.txt (line 1)) (8.4.1)
+#15 0.797 Requirement already satisfied: pytest-xvfb in /usr/local/lib/python3.11/site-packages (from -r requirements.txt (line 2)) (3.1.1)
+#15 0.798 Requirement already satisfied: coverage in /usr/local/lib/python3.11/site-packages (from -r requirements.txt (line 3)) (7.9.1)
+#15 0.799 Requirement already satisfied: requests in /usr/local/lib/python3.11/site-packages (from -r requirements.txt (line 4)) (2.32.4)
+#15 0.801 Requirement already satisfied: iniconfig>=1 in /usr/local/lib/python3.11/site-packages (from pytest->-r requirements.txt (line 1)) (2.1.0)
+#15 0.802 Requirement already satisfied: packaging>=20 in /usr/local/lib/python3.11/site-packages (from pytest->-r requirements.txt (line 1)) (25.0)
+#15 0.804 Requirement already satisfied: pluggy<2,>=1.5 in /usr/local/lib/python3.11/site-packages (from pytest->-r requirements.txt (line 1)) (1.6.0)
+#15 0.804 Requirement already satisfied: pygments>=2.7.2 in /usr/local/lib/python3.11/site-packages (from pytest->-r requirements.txt (line 1)) (2.19.2)
+#15 0.809 Requirement already satisfied: pyvirtualdisplay>=1.3 in /usr/local/lib/python3.11/site-packages (from pytest-xvfb->-r requirements.txt (line 2)) (3.0)
+#15 0.812 Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.11/site-packages (from requests->-r requirements.txt (line 4)) (3.4.2)
+#15 0.814 Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.11/site-packages (from requests->-r requirements.txt (line 4)) (3.10)
+#15 0.815 Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.11/site-packages (from requests->-r requirements.txt (line 4)) (2.5.0)
+#15 0.815 Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.11/site-packages (from requests->-r requirements.txt (line 4)) (2025.6.15)
+#15 0.843 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#15 DONE 1.2s
+
+#16 [12/15] RUN if [ -f setup.py ]; then     pip install --no-cache-dir -e . ||     pip install --no-cache-dir --no-build-isolation -e . ||     python setup.py develop ||     echo "Failed to install package in development mode, proceeding anyway"; fi
+#16 0.828 Obtaining file:///workspace/repo
+#16 0.834   Installing build dependencies: started
+#16 8.910   Installing build dependencies: finished with status 'done'
+#16 8.912   Checking if build backend supports build_editable: started
+#16 9.329   Checking if build backend supports build_editable: finished with status 'done'
+#16 9.331   Getting requirements to build editable: started
+#16 11.32   Getting requirements to build editable: finished with status 'done'
+#16 11.33   Preparing editable metadata (pyproject.toml): started
+#16 CANCELED
+ERROR: failed to solve: Canceled: context canceled
+
+2025-06-25 22:06:50,650 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_7269fa3e
+2025-06-25 22:06:51,186 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:06:51,189 - evaluation.sandbox - ERROR - Failed to build image: 
+got 3 SIGTERM/SIGINTs, forcefully exiting
+
+2025-06-25 22:06:51,191 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_0_20250625_220651.json
+2025-06-25 22:06:51,193 - __main__ - INFO - Shutting down Prometheus 2.0...
+2025-06-25 22:06:51,195 - tools.base_tools - INFO - Read file: agent/agent_core.py (29599 chars)
+2025-06-25 22:06:51,195 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 22:06:51,196 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-25 22:06:51,197 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 22:06:51,198 - archive.agent_archive - INFO - Archived agent agent_cdb10810 (generation 0)
+2025-06-25 22:06:51,388 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:06:51,590 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:06:51,794 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:06:52,245 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:06:53,083 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:13:43,426 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-25 22:13:43,441 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-25 22:13:43,441 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-25 22:13:43,442 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-25 22:13:44,871 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-25 22:13:55,834 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-25 22:13:55,835 - archive.agent_archive - WARNING - Failed to load generation agent_cdb10810.json: AgentGeneration.__init__() got an unexpected keyword argument 'mutation_changes'
+2025-06-25 22:13:55,836 - archive.agent_archive - WARNING - Failed to load generation agent_fe45a07d.json: AgentGeneration.__init__() got an unexpected keyword argument 'mutation_changes'
+2025-06-25 22:13:55,836 - archive.agent_archive - INFO - Loaded 0 generations from archive
+2025-06-25 22:13:55,840 - __main__ - INFO - Initializing Prometheus 2.0...
+2025-06-25 22:13:56,757 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-25 22:13:57,354 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 22:13:59,168 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-25 22:13:59,170 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-25 22:13:59,171 - agent.agent_core - INFO - Initialized agent agent_fa97a100
+2025-06-25 22:13:59,172 - __main__ - INFO - Prometheus 2.0 initialization complete
+2025-06-25 22:13:59,173 - __main__ - INFO - Starting evolution iteration 1
+2025-06-25 22:13:59,175 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-25 22:13:59,179 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-25 22:14:02,760 - evaluation.sandbox - INFO - Successfully built image: prometheus_eval_d16bfe05
+2025-06-25 22:14:06,073 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 22:14:06,762 - evaluation.sandbox - INFO - Started container: prometheus_eval_7920
+2025-06-25 22:14:18,598 - evaluation.sandbox - WARNING - Failed to cleanup container prometheus_eval_7920: Command '['docker', 'stop', 'prometheus_eval_7920']' timed out after 10 seconds
+2025-06-25 22:14:18,609 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-25 22:14:21,023 - evaluation.sandbox - INFO - Successfully built image: prometheus_eval_a5917978
+2025-06-25 22:14:24,593 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-25 22:14:25,250 - evaluation.sandbox - INFO - Started container: prometheus_eval_7920
+2025-06-25 22:14:29,053 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:14:29,057 - evaluation.sandbox - INFO - Cleaned up container: prometheus_eval_7920
+2025-06-25 22:14:29,087 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_7269fa3e
+2025-06-25 22:14:29,367 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:14:29,370 - evaluation.sandbox - ERROR - Failed to build image: 
+2025-06-25 22:14:29,373 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_0_20250625_221429.json
+2025-06-25 22:14:29,375 - __main__ - INFO - Shutting down Prometheus 2.0...
+2025-06-25 22:14:29,376 - tools.base_tools - INFO - Read file: agent/agent_core.py (29599 chars)
+2025-06-25 22:14:29,377 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 22:14:29,378 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-25 22:14:29,378 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-25 22:14:29,382 - archive.agent_archive - INFO - Archived agent agent_fa97a100 (generation 0)
+2025-06-25 22:14:29,641 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:14:29,894 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:14:30,128 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:14:30,417 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:14:30,710 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-25 22:14:31,302 - __main__ - INFO - Received signal 2, initiating graceful shutdown...

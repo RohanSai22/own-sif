@@ -23,15 +23,6 @@ import pandas as pd
 from pathlib import Path
 import logging
 
-# Import Prometheus components
-try:
-    from archive.agent_archive import AgentArchive
-    from tools.tool_manager import ToolManager
-except ImportError as e:
-    print(f"Warning: Could not import Prometheus components: {e}")
-    AgentArchive = None
-    ToolManager = None
-
 # Set up logging for the GUI
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -44,22 +35,6 @@ class PrometheusGUI:
         self.root.title("🔥 Prometheus 2.0 - Observable Darwinian Gödeli Machine")
         self.root.geometry("1800x1200")
         self.root.configure(bg="#1e1e1e")
-        
-        # Initialize Prometheus components
-        self.project_root = os.path.dirname(os.path.abspath(__file__))
-        self.agent_archive = None
-        self.tool_manager = None
-        
-        # Try to initialize archive and tool manager
-        try:
-            if AgentArchive:
-                self.agent_archive = AgentArchive(self.project_root)
-                logger.info("Successfully initialized AgentArchive")
-            if ToolManager:
-                self.tool_manager = ToolManager(self.project_root)
-                logger.info("Successfully initialized ToolManager")
-        except Exception as e:
-            logger.warning(f"Could not initialize Prometheus components: {e}")
         
         # Data queues for thread-safe updates
         self.message_queue = queue.Queue()
@@ -527,42 +502,20 @@ class PrometheusGUI:
             pass
     
     def update_quick_stats(self):
-        """Update the quick stats panel with real data from agent archive."""
+        """Update the quick stats panel."""
         try:
             # Clear existing stats
             for widget in self.stats_frame.winfo_children():
                 widget.destroy()
             
-            # Get real stats from agent archive
-            if self.agent_archive:
-                archive_stats = self.agent_archive.get_generation_stats()
-                best_agent = self.agent_archive.get_best_agent()
-                
-                # Update instance variables with real data
-                self.current_iteration = archive_stats.get("generation_depth", 0)
-                self.best_score = archive_stats.get("best_score", 0.0)
-                self.success_rate = archive_stats.get("success_rate", 0.0)
-                self.current_agent_id = best_agent.agent_id if best_agent else "genesis"
-                
-                stats = [
-                    ("Total Generations", str(archive_stats.get("total_generations", 0))),
-                    ("Best Score", f"{archive_stats.get('best_score', 0.0):.3f}"),
-                    ("Avg Success Rate", f"{archive_stats.get('success_rate', 0.0):.1%}"),
-                    ("Generation Depth", str(archive_stats.get("generation_depth", 0))),
-                    ("Active Branches", str(archive_stats.get("branches", 0))),
-                    ("Best Agent", best_agent.agent_id[:12] + "..." if best_agent and len(best_agent.agent_id) > 15 else (best_agent.agent_id if best_agent else "None")),
-                    ("Status", self.current_status)
-                ]
-            else:
-                # Fallback to static data if archive not available
-                stats = [
-                    ("Iterations", str(self.current_iteration)),
-                    ("Best Score", f"{self.best_score:.3f}"),
-                    ("Success Rate", f"{self.success_rate:.1%}"),
-                    ("Current Agent", self.current_agent_id),
-                    ("Status", self.current_status),
-                    ("Archive", "Not Available")
-                ]
+            # Add current stats
+            stats = [
+                ("Iterations", str(self.current_iteration)),
+                ("Best Score", f"{self.best_score:.3f}"),
+                ("Success Rate", f"{self.success_rate:.1%}"),
+                ("Current Agent", self.current_agent_id),
+                ("Status", self.current_status)
+            ]
             
             for i, (label, value) in enumerate(stats):
                 label_widget = ttk.Label(self.stats_frame, text=f"{label}:", style='Dark.TLabel')
@@ -574,73 +527,31 @@ class PrometheusGUI:
             pass
     
     def update_performance_charts(self):
-        """Update performance charts with real data from agent archive."""
+        """Update performance charts with latest data."""
         try:
             # Clear previous plots
             for ax in [self.score_ax, self.success_ax, self.time_ax, self.generation_ax]:
                 ax.clear()
             
-            if self.agent_archive:
-                # Get real evolution history
-                evolution_history = self.agent_archive.get_evolution_history()
-                
-                if evolution_history:
-                    # Extract data for charts
-                    generations = [item["generation"] for item in evolution_history]
-                    scores = [item["performance_score"] for item in evolution_history]
-                    success_rates = [item["success_rate"] for item in evolution_history]
-                    timestamps = [datetime.fromisoformat(item["created_at"]) for item in evolution_history]
-                    
-                    # Score over time
-                    self.score_ax.set_title("Score Evolution Over Time", color='white')
-                    self.score_ax.set_xlabel("Generation", color='white')
-                    self.score_ax.set_ylabel("Performance Score", color='white')
-                    if scores:
-                        self.score_ax.plot(generations, scores, 'cyan', marker='o', markersize=4, linewidth=2)
-                        self.score_ax.axhline(y=max(scores), color='gold', linestyle='--', alpha=0.7, label=f'Best: {max(scores):.3f}')
-                        self.score_ax.legend()
-                    
-                    # Success rate over time
-                    self.success_ax.set_title("Success Rate Evolution", color='white')
-                    self.success_ax.set_xlabel("Generation", color='white')
-                    self.success_ax.set_ylabel("Success Rate", color='white')
-                    if success_rates:
-                        self.success_ax.plot(generations, success_rates, 'lightgreen', marker='s', markersize=4, linewidth=2)
-                        avg_success = sum(success_rates) / len(success_rates)
-                        self.success_ax.axhline(y=avg_success, color='orange', linestyle='--', alpha=0.7, label=f'Avg: {avg_success:.3f}')
-                        self.success_ax.legend()
-                    
-                    # Score improvement over generations
-                    if len(scores) > 1:
-                        improvements = [scores[i] - scores[i-1] for i in range(1, len(scores))]
-                        self.time_ax.set_title("Score Improvement per Generation", color='white')
-                        self.time_ax.set_xlabel("Generation", color='white')
-                        self.time_ax.set_ylabel("Score Improvement", color='white')
-                        self.time_ax.bar(generations[1:], improvements, color='lightblue', alpha=0.7)
-                        self.time_ax.axhline(y=0, color='white', linestyle='-', alpha=0.5)
-                    
-                    # Generation timeline
-                    self.generation_ax.set_title("Agent Creation Timeline", color='white')
-                    self.generation_ax.set_xlabel("Time", color='white')
-                    self.generation_ax.set_ylabel("Generation", color='white')
-                    if timestamps:
-                        self.generation_ax.scatter([t.hour + t.minute/60 for t in timestamps], generations, 
-                                                 c=scores, cmap='viridis', s=50, alpha=0.8)
-                        self.generation_ax.set_xlabel("Hour of Day", color='white')
-                else:
-                    # No data available
-                    for ax, title in zip([self.score_ax, self.success_ax, self.time_ax, self.generation_ax],
-                                       ["Score Evolution", "Success Rate", "Score Improvement", "Timeline"]):
-                        ax.set_title(f"{title} (No Data)", color='white')
-                        ax.text(0.5, 0.5, 'No evolution data available', 
-                               ha='center', va='center', color='white', transform=ax.transAxes)
-            else:
-                # Archive not available
-                for ax, title in zip([self.score_ax, self.success_ax, self.time_ax, self.generation_ax],
-                                   ["Score Evolution", "Success Rate", "Score Improvement", "Timeline"]):
-                    ax.set_title(f"{title} (Archive Unavailable)", color='white')
-                    ax.text(0.5, 0.5, 'Agent archive not available', 
-                           ha='center', va='center', color='white', transform=ax.transAxes)
+            # Score over time
+            self.score_ax.set_title("Score Over Time", color='white')
+            self.score_ax.set_xlabel("Iteration", color='white')
+            self.score_ax.set_ylabel("Score", color='white')
+            
+            # Success rate over time
+            self.success_ax.set_title("Success Rate", color='white')
+            self.success_ax.set_xlabel("Iteration", color='white')
+            self.success_ax.set_ylabel("Success Rate", color='white')
+            
+            # Execution time
+            self.time_ax.set_title("Execution Time", color='white')
+            self.time_ax.set_xlabel("Iteration", color='white')
+            self.time_ax.set_ylabel("Time (s)", color='white')
+            
+            # Generation evolution
+            self.generation_ax.set_title("Generation Evolution", color='white')
+            self.generation_ax.set_xlabel("Generation", color='white')
+            self.generation_ax.set_ylabel("Score Improvement", color='white')
             
             # Style the plots
             for ax in [self.score_ax, self.success_ax, self.time_ax, self.generation_ax]:
@@ -651,14 +562,7 @@ class PrometheusGUI:
             self.perf_canvas.draw()
             
         except Exception as e:
-            logger.error(f"Error updating performance charts: {e}")
-            # Fallback to empty charts with error message
-            for ax in [self.score_ax, self.success_ax, self.time_ax, self.generation_ax]:
-                ax.clear()
-                ax.set_title("Chart Error", color='white')
-                ax.text(0.5, 0.5, f'Error: {str(e)[:50]}...', 
-                       ha='center', va='center', color='red', transform=ax.transAxes)
-            self.perf_canvas.draw()
+            pass
     
     def on_generation_select(self, event):
         """Handle generation selection in the tree view."""
@@ -677,101 +581,25 @@ class PrometheusGUI:
             pass
     
     def load_agent_details(self, agent_id: str):
-        """Load and display detailed information about an agent from archive."""
+        """Load and display detailed information about an agent."""
         try:
             self.agent_details_text.delete(1.0, tk.END)
             
-            if self.agent_archive:
-                # Get the actual generation data
-                generation = self.agent_archive.get_generation(agent_id)
-                
-                if generation:
-                    details = f"""Agent Details: {agent_id}
-
-🔹 Basic Information:
-   Generation: {generation.generation}
-   Parent: {generation.parent_id or 'Genesis'}
-   Created: {generation.created_at.strftime('%Y-%m-%d %H:%M:%S')}
-
-🔹 Performance Metrics:
-   Score: {generation.performance_score:.3f}
-   Success Rate: {generation.success_rate:.3f}
-   Total Tasks: {generation.total_tasks}
-
-🔹 Evolution Data:
-   Mutations Applied: {len(generation.mutations_applied)}
-   Task Results: {len(generation.task_results)} evaluations
-
-🔹 Metadata:
-   Source Code Available: {'Yes' if hasattr(generation, 'source_code') and generation.source_code else 'No'}
-   Additional Info: {len(generation.metadata)} metadata fields
-
-🔹 Mutations Applied:
-"""
-                    
-                    # Add mutation details
-                    if generation.mutations_applied:
-                        for i, mutation in enumerate(generation.mutations_applied, 1):
-                            if isinstance(mutation, dict):
-                                mut_type = mutation.get('type', 'Unknown')
-                                mut_desc = mutation.get('description', 'No description')
-                                details += f"   {i}. {mut_type}: {mut_desc}\n"
-                            else:
-                                details += f"   {i}. {str(mutation)}\n"
-                    else:
-                        details += "   No mutations recorded\n"
-                    
-                    # Add task results summary
-                    details += f"\n🔹 Task Results Summary:\n"
-                    if generation.task_results:
-                        successful = sum(1 for result in generation.task_results if result and result.get('success', False))
-                        details += f"   Successful: {successful}/{len(generation.task_results)}\n"
-                        details += f"   Success Rate: {(successful/len(generation.task_results)*100):.1f}%\n"
-                    else:
-                        details += "   No task results available\n"
-                    
-                    # Add metadata
-                    if generation.metadata:
-                        details += f"\n🔹 Additional Metadata:\n"
-                        for key, value in generation.metadata.items():
-                            details += f"   {key}: {str(value)[:100]}...\n" if len(str(value)) > 100 else f"   {key}: {value}\n"
-                else:
-                    details = f"""Agent Details: {agent_id}
-
-❌ Agent not found in archive.
-
-This could mean:
-- The agent ID was truncated for display
-- The agent was not properly archived
-- There was an error loading the agent data
-
-Try refreshing the data or check the logs for more information.
-"""
-            else:
-                details = f"""Agent Details: {agent_id}
-
-❌ Agent archive not available.
-
-Cannot load agent details because the agent archive system is not initialized.
-This could be due to:
-- Missing archive directory
-- Import errors
-- Archive initialization failure
-
-Please check the system logs for more information.
-"""
+            details = f"""Agent Details: {agent_id}
+            
+Loading agent information...
+This would include:
+- Source code changes
+- Performance metrics
+- Tool usage statistics
+- Mutation history
+- Evaluation results
+            """
             
             self.agent_details_text.insert(1.0, details)
             
         except Exception as e:
-            logger.error(f"Error loading agent details: {e}")
-            error_details = f"""Agent Details: {agent_id}
-
-❌ Error loading agent details: {str(e)}
-
-Please check the logs for more information.
-"""
-            self.agent_details_text.insert(1.0, error_details)
+            pass
     
     def refresh_data(self):
         """Refresh all data displays."""
@@ -785,133 +613,44 @@ Please check the logs for more information.
             pass
     
     def load_available_tools(self):
-        """Load and display available tools from tool manager."""
+        """Load and display available tools."""
         try:
             self.tools_listbox.delete(0, tk.END)
             
-            if self.tool_manager:
-                # Get actual tools from tool manager
-                try:
-                    tools_list = self.tool_manager.list_tools()
-                    
-                    if tools_list:
-                        for tool in tools_list:
-                            tool_name = tool.get('name', 'Unknown')
-                            description = tool.get('description', 'No description available')
-                            usage_count = tool.get('usage_count', 0)
-                            is_generated = tool.get('is_generated', False)
-                            
-                            tool_display = f"{tool_name} - {description}"
-                            if usage_count > 0:
-                                tool_display += f" (used {usage_count}x)"
-                            if is_generated:
-                                tool_display += " [Generated]"
-                                
-                            self.tools_listbox.insert(tk.END, tool_display)
-                    else:
-                        self.tools_listbox.insert(tk.END, "No tools available in tool manager")
-                        
-                except Exception as e:
-                    logger.error(f"Error loading tools from tool manager: {e}")
-                    self.tools_listbox.insert(tk.END, f"Error loading tools: {e}")
-            else:
-                # Fallback to base tools if tool manager not available
-                try:
-                    # Try to read base_tools.py to get actual tool list
-                    base_tools_path = os.path.join(self.project_root, "tools", "base_tools.py")
-                    if os.path.exists(base_tools_path):
-                        with open(base_tools_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-                            
-                        # Extract function definitions (simple parsing)
-                        import re
-                        func_pattern = r'def\s+(\w+)\s*\([^)]*\):\s*"""([^"]*)'
-                        matches = re.findall(func_pattern, content)
-                        
-                        for func_name, docstring in matches:
-                            if not func_name.startswith('_'):  # Skip private functions
-                                description = docstring.strip().split('\n')[0] if docstring else "No description"
-                                tool_display = f"{func_name} - {description}"
-                                self.tools_listbox.insert(tk.END, tool_display)
-                    else:
-                        # Final fallback to sample tools
-                        tools = [
-                            "web_search - Search the web for information",
-                            "read_file - Read file contents", 
-                            "write_file - Write content to file",
-                            "list_directory - List directory contents",
-                            "execute_shell_command - Execute shell commands",
-                            "scrape_and_extract_text - Extract text from web pages"
-                        ]
-                        
-                        for tool in tools:
-                            self.tools_listbox.insert(tk.END, tool)
-                            
-                except Exception as e:
-                    logger.error(f"Error reading base tools: {e}")
-                    self.tools_listbox.insert(tk.END, f"Error loading tools: {e}")
+            # Add sample tools (replace with actual tool loading)
+            tools = [
+                "web_search - Search the web for information",
+                "read_file - Read file contents",
+                "write_file - Write content to file",
+                "list_directory - List directory contents",
+                "execute_shell_command - Execute shell commands",
+                "scrape_and_extract_text - Extract text from web pages"
+            ]
+            
+            for tool in tools:
+                self.tools_listbox.insert(tk.END, tool)
                 
         except Exception as e:
-            logger.error(f"Error in load_available_tools: {e}")
-            self.tools_listbox.insert(tk.END, f"Critical error: {e}")
+            pass
     
     def load_generation_history(self):
-        """Load and display generation history from agent archive."""
+        """Load and display generation history."""
         try:
             # Clear existing items
             for item in self.generation_tree.get_children():
                 self.generation_tree.delete(item)
             
-            if self.agent_archive:
-                # Get real generation data from archive
-                evolution_history = self.agent_archive.get_evolution_history()
-                
-                if evolution_history:
-                    for item in evolution_history:
-                        agent_id = item["agent_id"]
-                        generation = str(item["generation"])
-                        parent_id = item["parent_id"] or "-"
-                        score = f"{item['performance_score']:.3f}"
-                        success_rate = f"{item['success_rate']:.3f}"
-                        created_at = datetime.fromisoformat(item["created_at"]).strftime("%Y-%m-%d %H:%M:%S")
-                        
-                        # Calculate score improvement
-                        if item["parent_id"]:
-                            # Find parent's score to calculate improvement
-                            parent_score = 0.0
-                            for parent_item in evolution_history:
-                                if parent_item["agent_id"] == item["parent_id"]:
-                                    parent_score = parent_item["performance_score"]
-                                    break
-                            improvement = item["performance_score"] - parent_score
-                            improvement_str = f"{improvement:+.3f}" if improvement != 0 else "0.000"
-                        else:
-                            improvement_str = "0.000"
-                        
-                        # Truncate long agent IDs for display
-                        display_id = agent_id[:12] + "..." if len(agent_id) > 15 else agent_id
-                        display_parent = parent_id[:12] + "..." if parent_id != "-" and len(parent_id) > 15 else parent_id
-                        
-                        row_data = (display_id, generation, display_parent, score, improvement_str, created_at)
-                        self.generation_tree.insert("", tk.END, values=row_data)
-                else:
-                    # No generations found
-                    self.generation_tree.insert("", tk.END, values=("No data", "-", "-", "-", "-", "-"))
-            else:
-                # Archive not available, show sample data
-                generations = [
-                    ("agent_genesis", "0", "-", "0.000", "0.000", "2025-06-25 21:00:00"),
-                    ("agent_fe45a07d", "1", "agent_genesis", "0.120", "+0.120", "2025-06-25 21:05:00"),
-                    ("Archive unavailable", "-", "-", "-", "-", "-")
-                ]
-                
-                for gen in generations:
-                    self.generation_tree.insert("", tk.END, values=gen)
+            # Add sample data (replace with actual data loading)
+            generations = [
+                ("agent_genesis", "0", "-", "0.000", "0.000", "2025-06-25 21:00:00"),
+                ("agent_fe45a07d", "1", "agent_genesis", "0.120", "+0.120", "2025-06-25 21:05:00"),
+            ]
+            
+            for gen in generations:
+                self.generation_tree.insert("", tk.END, values=gen)
                 
         except Exception as e:
-            logger.error(f"Error loading generation history: {e}")
-            # Show error in the tree
-            self.generation_tree.insert("", tk.END, values=(f"Error: {str(e)[:20]}...", "-", "-", "-", "-", "-"))
+            pass
     
     def start_monitoring(self):
         """Start the monitoring and update loop."""
@@ -965,6 +704,431 @@ def main():
         gui.run()
     except Exception as e:
         print(f"Failed to start GUI: {e}")
+
+if __name__ == "__main__":
+    main()
+        style.configure('Panel.TFrame', background=panel_color, relief='raised', borderwidth=1)
+        style.configure('Dark.TLabel', background=bg_color, foreground=fg_color, font=('Segoe UI', 10))
+        style.configure('Title.TLabel', background=bg_color, foreground=accent_color, font=('Segoe UI', 16, 'bold'))
+        style.configure('Header.TLabel', background=panel_color, foreground=accent_color, font=('Segoe UI', 12, 'bold'))
+        style.configure('Dark.TNotebook', background=bg_color, borderwidth=0)
+        style.configure('Dark.TNotebook.Tab', background=panel_color, foreground=fg_color, padding=[20, 8])
+        
+    def create_widgets(self):
+        """Create all GUI widgets."""
+        # Main container
+        main_frame = ttk.Frame(self.root, style='Dark.TFrame')
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Title
+        title_label = ttk.Label(main_frame, text="🔥 Prometheus 2.0 - Observable Darwinian Gödeli Machine", style='Title.TLabel')
+        title_label.pack(pady=(0, 20))
+        
+        # Status bar
+        self.create_status_bar(main_frame)
+        
+        # Main notebook for tabs
+        self.notebook = ttk.Notebook(main_frame, style='Dark.TNotebook')
+        self.notebook.pack(fill=tk.BOTH, expand=True, pady=(10, 0))
+        
+        # Create tabs
+        self.create_overview_tab()
+        self.create_performance_tab()
+        self.create_activity_tab()
+        self.create_evaluation_tab()
+        self.create_system_tab()
+        
+    def create_status_bar(self, parent):
+        """Create the status bar."""
+        status_frame = ttk.Frame(parent, style='Panel.TFrame')
+        status_frame.pack(fill=tk.X, pady=(0, 10))
+        
+        # Current status
+        self.status_var = tk.StringVar(value="⚡ Starting up...")
+        status_label = ttk.Label(status_frame, textvariable=self.status_var, style='Header.TLabel')
+        status_label.pack(side=tk.LEFT, padx=10, pady=5)
+        
+        # Current time
+        self.time_var = tk.StringVar()
+        time_label = ttk.Label(status_frame, textvariable=self.time_var, style='Dark.TLabel')
+        time_label.pack(side=tk.RIGHT, padx=10, pady=5)
+        
+        self.update_time()
+        
+    def create_overview_tab(self):
+        """Create the overview tab."""
+        overview_frame = ttk.Frame(self.notebook, style='Dark.TFrame')
+        self.notebook.add(overview_frame, text="📊 Overview")
+        
+        # Top metrics row
+        metrics_frame = ttk.Frame(overview_frame, style='Dark.TFrame')
+        metrics_frame.pack(fill=tk.X, padx=10, pady=10)
+        
+        # Performance metrics
+        self.create_metric_card(metrics_frame, "Current Agent", "agent_9a4e61f3", "🤖")
+        self.create_metric_card(metrics_frame, "Best Score", "0.000", "🏆")
+        self.create_metric_card(metrics_frame, "Generation", "1", "🧬")
+        self.create_metric_card(metrics_frame, "Tasks Completed", "0", "✅")
+        
+        # Live activity
+        activity_frame = ttk.Frame(overview_frame, style='Panel.TFrame')
+        activity_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        ttk.Label(activity_frame, text="🧠 Live Agent Activity", style='Header.TLabel').pack(anchor=tk.W, padx=10, pady=5)
+        
+        self.activity_text = scrolledtext.ScrolledText(
+            activity_frame, 
+            bg="#1e1e1e", 
+            fg="#00d4aa",
+            insertbackground="#00d4aa",
+            font=('Consolas', 10),
+            wrap=tk.WORD,
+            height=20
+        )
+        self.activity_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+        
+    def create_performance_tab(self):
+        """Create the performance metrics tab."""
+        perf_frame = ttk.Frame(self.notebook, style='Dark.TFrame')
+        self.notebook.add(perf_frame, text="📈 Performance")
+        
+        # Chart frame
+        chart_frame = ttk.Frame(perf_frame, style='Panel.TFrame')
+        chart_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Create matplotlib figure
+        self.perf_fig = Figure(figsize=(12, 8), facecolor='#2d2d2d')
+        self.perf_canvas = FigureCanvasTkAgg(self.perf_fig, chart_frame)
+        self.perf_canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Initialize performance chart
+        self.update_performance_chart()
+        
+    def create_activity_tab(self):
+        """Create the activity log tab."""
+        activity_frame = ttk.Frame(self.notebook, style='Dark.TFrame')
+        self.notebook.add(activity_frame, text="🔍 Activity Logs")
+        
+        # Create sub-notebook for different log types
+        log_notebook = ttk.Notebook(activity_frame, style='Dark.TNotebook')
+        log_notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Thoughts log
+        thoughts_frame = ttk.Frame(log_notebook, style='Dark.TFrame')
+        log_notebook.add(thoughts_frame, text="🧠 Thoughts")
+        
+        self.thoughts_text = scrolledtext.ScrolledText(
+            thoughts_frame,
+            bg="#1e1e1e",
+            fg="#ffff00",
+            font=('Consolas', 9),
+            wrap=tk.WORD
+        )
+        self.thoughts_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # Actions log
+        actions_frame = ttk.Frame(log_notebook, style='Dark.TFrame')
+        log_notebook.add(actions_frame, text="⚡ Actions")
+        
+        self.actions_text = scrolledtext.ScrolledText(
+            actions_frame,
+            bg="#1e1e1e",
+            fg="#00d4aa",
+            font=('Consolas', 9),
+            wrap=tk.WORD
+        )
+        self.actions_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # Docker log
+        docker_frame = ttk.Frame(log_notebook, style='Dark.TFrame')
+        log_notebook.add(docker_frame, text="🐳 Docker")
+        
+        self.docker_text = scrolledtext.ScrolledText(
+            docker_frame,
+            bg="#1e1e1e",
+            fg="#ff6b6b",
+            font=('Consolas', 9),
+            wrap=tk.WORD
+        )
+        self.docker_text.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+    def create_evaluation_tab(self):
+        """Create the evaluation results tab."""
+        eval_frame = ttk.Frame(self.notebook, style='Dark.TFrame')
+        self.notebook.add(eval_frame, text="🧪 Evaluation")
+        
+        # Results table frame
+        table_frame = ttk.Frame(eval_frame, style='Panel.TFrame')
+        table_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        ttk.Label(table_frame, text="📋 Evaluation Results", style='Header.TLabel').pack(anchor=tk.W, padx=10, pady=5)
+        
+        # Create treeview for results
+        columns = ("Task ID", "Status", "Score", "Time", "Error")
+        self.eval_tree = ttk.Treeview(table_frame, columns=columns, show='headings', height=20)
+        
+        for col in columns:
+            self.eval_tree.heading(col, text=col)
+            self.eval_tree.column(col, width=120)
+        
+        # Scrollbar for treeview
+        eval_scrollbar = ttk.Scrollbar(table_frame, orient=tk.VERTICAL, command=self.eval_tree.yview)
+        self.eval_tree.configure(yscrollcommand=eval_scrollbar.set)
+        
+        self.eval_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(10, 0), pady=5)
+        eval_scrollbar.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 10), pady=5)
+        
+    def create_system_tab(self):
+        """Create the system configuration tab."""
+        system_frame = ttk.Frame(self.notebook, style='Dark.TFrame')
+        self.notebook.add(system_frame, text="⚙️ System")
+        
+        # Configuration display
+        config_frame = ttk.Frame(system_frame, style='Panel.TFrame')
+        config_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        ttk.Label(config_frame, text="🔧 System Configuration", style='Header.TLabel').pack(anchor=tk.W, padx=10, pady=5)
+        
+        self.config_text = scrolledtext.ScrolledText(
+            config_frame,
+            bg="#1e1e1e",
+            fg="#ffffff",
+            font=('Consolas', 10),
+            wrap=tk.WORD,
+            state=tk.DISABLED
+        )
+        self.config_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+        
+        # Load and display current configuration
+        self.load_system_config()
+        
+    def create_metric_card(self, parent, title, value, emoji):
+        """Create a metric display card."""
+        card_frame = ttk.Frame(parent, style='Panel.TFrame')
+        card_frame.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5, pady=5)
+        
+        # Emoji and title
+        header_text = f"{emoji} {title}"
+        ttk.Label(card_frame, text=header_text, style='Header.TLabel').pack(pady=(10, 5))
+        
+        # Value
+        value_var = tk.StringVar(value=value)
+        ttk.Label(card_frame, textvariable=value_var, style='Dark.TLabel').pack(pady=(0, 10))
+        
+        # Store reference for updates
+        setattr(self, f"{title.lower().replace(' ', '_')}_var", value_var)
+        
+    def update_performance_chart(self):
+        """Update the performance chart."""
+        self.perf_fig.clear()
+        
+        # Create subplots
+        ax1 = self.perf_fig.add_subplot(221, facecolor='#1e1e1e')
+        ax2 = self.perf_fig.add_subplot(222, facecolor='#1e1e1e')
+        ax3 = self.perf_fig.add_subplot(223, facecolor='#1e1e1e')
+        ax4 = self.perf_fig.add_subplot(224, facecolor='#1e1e1e')
+        
+        # Dummy data for now
+        generations = list(range(1, 11))
+        scores = [0.1 + i * 0.08 for i in range(10)]
+        
+        # Score evolution
+        ax1.plot(generations, scores, color='#00d4aa', linewidth=2, marker='o')
+        ax1.set_title('Score Evolution', color='#ffffff')
+        ax1.set_xlabel('Generation', color='#ffffff')
+        ax1.set_ylabel('Score', color='#ffffff')
+        ax1.tick_params(colors='#ffffff')
+        ax1.grid(True, alpha=0.3)
+        
+        # Task success rate
+        success_rates = [0.2 + i * 0.05 for i in range(10)]
+        ax2.bar(generations, success_rates, color='#ff6b6b', alpha=0.7)
+        ax2.set_title('Success Rate', color='#ffffff')
+        ax2.set_xlabel('Generation', color='#ffffff')
+        ax2.set_ylabel('Success Rate', color='#ffffff')
+        ax2.tick_params(colors='#ffffff')
+        
+        # Error distribution
+        error_types = ['Docker', 'Timeout', 'Parse', 'Other']
+        error_counts = [15, 8, 5, 2]
+        ax3.pie(error_counts, labels=error_types, autopct='%1.1f%%', startangle=90,
+                colors=['#ff6b6b', '#ffed4e', '#00d4aa', '#6c5ce7'])
+        ax3.set_title('Error Distribution', color='#ffffff')
+        
+        # Tool usage
+        tools = ['web_search', 'read_file', 'write_file', 'git']
+        usage = [25, 40, 35, 10]
+        ax4.barh(tools, usage, color='#00d4aa', alpha=0.7)
+        ax4.set_title('Tool Usage', color='#ffffff')
+        ax4.set_xlabel('Usage Count', color='#ffffff')
+        ax4.tick_params(colors='#ffffff')
+        
+        # Style all axes
+        for ax in [ax1, ax2, ax3, ax4]:
+            ax.spines['bottom'].set_color('#ffffff')
+            ax.spines['top'].set_color('#1e1e1e')
+            ax.spines['right'].set_color('#1e1e1e')
+            ax.spines['left'].set_color('#ffffff')
+        
+        self.perf_fig.tight_layout()
+        self.perf_canvas.draw()
+        
+    def start_monitoring(self):
+        """Start monitoring system for updates."""
+        self.monitor_thread = threading.Thread(target=self.monitor_prometheus_logs, daemon=True)
+        self.monitor_thread.start()
+        
+        # Start GUI update timer
+        self.process_updates()
+        
+    def monitor_prometheus_logs(self):
+        """Monitor Prometheus log files for updates."""
+        log_file = Path("prometheus_dgm/prometheus.log")
+        
+        if not log_file.exists():
+            return
+            
+        # Monitor log file for changes
+        last_size = 0
+        
+        while True:
+            try:
+                current_size = log_file.stat().st_size
+                
+                if current_size > last_size:
+                    with open(log_file, 'r', encoding='utf-8') as f:
+                        f.seek(last_size)
+                        new_lines = f.read()
+                        
+                    # Parse and queue new log entries
+                    for line in new_lines.strip().split('\n'):
+                        if line.strip():
+                            self.parse_log_line(line)
+                    
+                    last_size = current_size
+                
+                time.sleep(1)  # Check every second
+                
+            except Exception as e:
+                print(f"Error monitoring logs: {e}")
+                time.sleep(5)
+                
+    def parse_log_line(self, line):
+        """Parse a log line and queue appropriate updates."""
+        try:
+            if " - " in line:
+                timestamp_part, message_part = line.split(" - ", 1)
+                timestamp = timestamp_part.split(",")[0]
+                
+                # Determine log type and queue update
+                if "agent_core" in line:
+                    self.message_queue.put(("thought", f"{timestamp}: {message_part}"))
+                elif "evaluation" in line:
+                    self.message_queue.put(("docker", f"{timestamp}: {message_part}"))
+                else:
+                    self.message_queue.put(("action", f"{timestamp}: {message_part}"))
+                    
+        except Exception:
+            # Queue as general activity
+            self.message_queue.put(("activity", line))
+            
+    def process_updates(self):
+        """Process queued updates and refresh GUI."""
+        try:
+            # Process message queue
+            while not self.message_queue.empty():
+                log_type, message = self.message_queue.get_nowait()
+                self.add_log_message(log_type, message)
+                
+            # Update time
+            self.update_time()
+            
+            # Update status based on activity
+            self.update_status()
+            
+        except queue.Empty:
+            pass
+        except Exception as e:
+            print(f"Error processing updates: {e}")
+        
+        # Schedule next update
+        self.root.after(1000, self.process_updates)
+        
+    def add_log_message(self, log_type, message):
+        """Add a message to the appropriate log."""
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        formatted_message = f"[{timestamp}] {message}\n"
+        
+        if log_type == "thought":
+            self.thoughts_text.insert(tk.END, formatted_message)
+            self.thoughts_text.see(tk.END)
+            
+        elif log_type == "action":
+            self.actions_text.insert(tk.END, formatted_message)
+            self.actions_text.see(tk.END)
+            
+        elif log_type == "docker":
+            self.docker_text.insert(tk.END, formatted_message)
+            self.docker_text.see(tk.END)
+            
+        elif log_type == "activity":
+            self.activity_text.insert(tk.END, formatted_message)
+            self.activity_text.see(tk.END)
+            
+        # Limit text buffer size
+        for text_widget in [self.thoughts_text, self.actions_text, self.docker_text, self.activity_text]:
+            lines = text_widget.get("1.0", tk.END).count('\n')
+            if lines > 1000:
+                text_widget.delete("1.0", "100.0")
+                
+    def update_time(self):
+        """Update the time display."""
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.time_var.set(f"🕒 {current_time}")
+        
+    def update_status(self):
+        """Update the status display."""
+        # This could be enhanced to show real status from the system
+        self.status_var.set("⚡ Prometheus 2.0 Running - Evaluating Tasks")
+        
+    def load_system_config(self):
+        """Load and display system configuration."""
+        config_info = {
+            "System": "Prometheus 2.0 - Observable Darwinian Gödeli Machine",
+            "LLM Provider": "Groq",
+            "Models": [
+                "meta-llama/llama-4-maverick-17b-128e-instruct",
+                "meta-llama/llama-4-scout-17b-16e-instruct", 
+                "qwen/qwen3-32b"
+            ],
+            "Web Search": "DuckDuckGo (API-free)",
+            "Evaluation": "SWE-bench Lite",
+            "Docker": "Enabled",
+            "TUI": "Rich/Textual",
+            "Created": "2025-06-25"
+        }
+        
+        self.config_text.config(state=tk.NORMAL)
+        self.config_text.delete("1.0", tk.END)
+        
+        config_text = json.dumps(config_info, indent=2)
+        self.config_text.insert("1.0", config_text)
+        
+        self.config_text.config(state=tk.DISABLED)
+        
+    def run(self):
+        """Start the GUI application."""
+        self.root.mainloop()
+
+def main():
+    """Main entry point."""
+    try:
+        app = PrometheusGUI()
+        app.run()
+    except KeyboardInterrupt:
+        print("\nGUI shutdown requested")
+    except Exception as e:
+        print(f"GUI error: {e}")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,34 @@
+{
+  "batch_start": 0,
+  "batch_size": 3,
+  "timestamp": "20250625_221429",
+  "results": [
+    {
+      "instance_id": "astropy__astropy-12907",
+      "success": false,
+      "score": 0.47,
+      "execution_time": 19.426722049713135,
+      "patch_applied": true,
+      "error_message": null,
+      "test_results_count": 4
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "success": false,
+      "score": 0.45999999999999996,
+      "execution_time": 10.474215030670166,
+      "patch_applied": true,
+      "error_message": null,
+      "test_results_count": 4
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "success": false,
+      "score": 0.0,
+      "execution_time": 0.2895941734313965,
+      "patch_applied": false,
+      "error_message": "Environment creation failed: ",
+      "test_results_count": 0
+    }
+  ]
+}

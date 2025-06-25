@@ -1,0 +1,15 @@
+{
+  "agent_id": "agent_fe45a07d",
+  "generation": 0,
+  "parent_id": null,
+  "created_at": "2025-06-25T21:09:12.403311",
+  "performance_score": 0.85,
+  "success_rate": 1.0,
+  "total_tasks": 2,
+  "mutation_changes": [],
+  "source_code_hash": "3a79e3643648ea2e",
+  "metadata": {
+    "shutdown_iteration": 3,
+    "final_agent": true
+  }
+}

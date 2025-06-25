@@ -497,38 +497,12 @@ Based on this analysis, propose specific code improvements:
     def _enhance_improvement_response(self, response: str) -> str:
         """Enhance and validate the improvement response."""
         try:
-            # Clean the response - remove any markdown formatting
-            cleaned_response = response.strip()
-            
-            # Remove ```json and ``` markers if present
-            if cleaned_response.startswith("```json"):
-                cleaned_response = cleaned_response[7:]
-            if cleaned_response.startswith("```"):
-                cleaned_response = cleaned_response[3:]
-            if cleaned_response.endswith("```"):
-                cleaned_response = cleaned_response[:-3]
-            
-            cleaned_response = cleaned_response.strip()
-            
             # Try to parse as JSON
-            try:
-                data = json.loads(cleaned_response)
-            except json.JSONDecodeError:
-                # Try to extract JSON from the response
-                import re
-                json_pattern = r'\{.*\}'
-                matches = re.search(json_pattern, cleaned_response, re.DOTALL)
-                if matches:
-                    data = json.loads(matches.group())
-                else:
-                    raise ValueError("No valid JSON found in response")
+            data = json.loads(response)
             
             # Ensure required fields exist
             if "analysis" not in data:
-                data["analysis"] = "Generated analysis from response"
-            
-            if "research_findings" not in data:
-                data["research_findings"] = "Internal analysis performed"
+                data["analysis"] = "Generated analysis"
             
             if "proposed_changes" not in data:
                 data["proposed_changes"] = []
@@ -537,17 +511,7 @@ Based on this analysis, propose specific code improvements:
                 data["new_tools"] = []
             
             # Validate proposed changes structure
-            for i, change in enumerate(data["proposed_changes"]):
-                if not isinstance(change, dict):
-                    data["proposed_changes"][i] = {
-                        "file_path": "agent/agent_core.py",
-                        "action": "replace_block", 
-                        "identifier": "solve_task",
-                        "new_code": "# Improved implementation needed",
-                        "reasoning": "Change format was invalid"
-                    }
-                    continue
-                    
+            for change in data["proposed_changes"]:
                 if "file_path" not in change:
                     change["file_path"] = "agent/agent_core.py"
                 if "action" not in change:
@@ -559,45 +523,14 @@ Based on this analysis, propose specific code improvements:
                 if "reasoning" not in change:
                     change["reasoning"] = "Improvement needed"
             
-            # Validate new tools structure
-            for i, tool in enumerate(data["new_tools"]):
-                if not isinstance(tool, dict):
-                    data["new_tools"][i] = {
-                        "tool_name": "improved_tool",
-                        "function_name": "improved_function",
-                        "code": "# Tool implementation needed",
-                        "dependencies": []
-                    }
-                    continue
-                    
-                if "tool_name" not in tool:
-                    tool["tool_name"] = "improved_tool"
-                if "function_name" not in tool:
-                    tool["function_name"] = "improved_function"
-                if "code" not in tool:
-                    tool["code"] = "# Tool implementation needed"
-                if "dependencies" not in tool:
-                    tool["dependencies"] = []
-            
             return json.dumps(data, indent=2)
             
-        except Exception as e:
-            logger.warning(f"Failed to parse improvement response: {e}")
-            logger.debug(f"Original response: {response[:200]}...")
-            
-            # If all parsing fails, create a minimal valid response
+        except json.JSONDecodeError:
+            # If not valid JSON, wrap in a proper structure
             return json.dumps({
-                "analysis": f"Response parsing failed: {str(e)}. Original response was: {response[:100]}...",
-                "research_findings": "Unable to parse research findings from response",
-                "proposed_changes": [
-                    {
-                        "file_path": "agent/agent_core.py",
-                        "action": "replace_block",
-                        "identifier": "_enhance_improvement_response",
-                        "new_code": "# Improved response parsing needed",
-                        "reasoning": "Current parsing method failed, needs better error handling"
-                    }
-                ],
+                "analysis": "Response was not in valid JSON format",
+                "research_findings": response[:500],
+                "proposed_changes": [],
                 "new_tools": []
             }, indent=2)
     

@@ -677,101 +677,25 @@ class PrometheusGUI:
             pass
     
     def load_agent_details(self, agent_id: str):
-        """Load and display detailed information about an agent from archive."""
+        """Load and display detailed information about an agent."""
         try:
             self.agent_details_text.delete(1.0, tk.END)
             
-            if self.agent_archive:
-                # Get the actual generation data
-                generation = self.agent_archive.get_generation(agent_id)
-                
-                if generation:
-                    details = f"""Agent Details: {agent_id}
-
-🔹 Basic Information:
-   Generation: {generation.generation}
-   Parent: {generation.parent_id or 'Genesis'}
-   Created: {generation.created_at.strftime('%Y-%m-%d %H:%M:%S')}
-
-🔹 Performance Metrics:
-   Score: {generation.performance_score:.3f}
-   Success Rate: {generation.success_rate:.3f}
-   Total Tasks: {generation.total_tasks}
-
-🔹 Evolution Data:
-   Mutations Applied: {len(generation.mutations_applied)}
-   Task Results: {len(generation.task_results)} evaluations
-
-🔹 Metadata:
-   Source Code Available: {'Yes' if hasattr(generation, 'source_code') and generation.source_code else 'No'}
-   Additional Info: {len(generation.metadata)} metadata fields
-
-🔹 Mutations Applied:
-"""
-                    
-                    # Add mutation details
-                    if generation.mutations_applied:
-                        for i, mutation in enumerate(generation.mutations_applied, 1):
-                            if isinstance(mutation, dict):
-                                mut_type = mutation.get('type', 'Unknown')
-                                mut_desc = mutation.get('description', 'No description')
-                                details += f"   {i}. {mut_type}: {mut_desc}\n"
-                            else:
-                                details += f"   {i}. {str(mutation)}\n"
-                    else:
-                        details += "   No mutations recorded\n"
-                    
-                    # Add task results summary
-                    details += f"\n🔹 Task Results Summary:\n"
-                    if generation.task_results:
-                        successful = sum(1 for result in generation.task_results if result and result.get('success', False))
-                        details += f"   Successful: {successful}/{len(generation.task_results)}\n"
-                        details += f"   Success Rate: {(successful/len(generation.task_results)*100):.1f}%\n"
-                    else:
-                        details += "   No task results available\n"
-                    
-                    # Add metadata
-                    if generation.metadata:
-                        details += f"\n🔹 Additional Metadata:\n"
-                        for key, value in generation.metadata.items():
-                            details += f"   {key}: {str(value)[:100]}...\n" if len(str(value)) > 100 else f"   {key}: {value}\n"
-                else:
-                    details = f"""Agent Details: {agent_id}
-
-❌ Agent not found in archive.
-
-This could mean:
-- The agent ID was truncated for display
-- The agent was not properly archived
-- There was an error loading the agent data
-
-Try refreshing the data or check the logs for more information.
-"""
-            else:
-                details = f"""Agent Details: {agent_id}
-
-❌ Agent archive not available.
-
-Cannot load agent details because the agent archive system is not initialized.
-This could be due to:
-- Missing archive directory
-- Import errors
-- Archive initialization failure
-
-Please check the system logs for more information.
-"""
+            details = f"""Agent Details: {agent_id}
+            
+Loading agent information...
+This would include:
+- Source code changes
+- Performance metrics
+- Tool usage statistics
+- Mutation history
+- Evaluation results
+            """
             
             self.agent_details_text.insert(1.0, details)
             
         except Exception as e:
-            logger.error(f"Error loading agent details: {e}")
-            error_details = f"""Agent Details: {agent_id}
-
-❌ Error loading agent details: {str(e)}
-
-Please check the logs for more information.
-"""
-            self.agent_details_text.insert(1.0, error_details)
+            pass
     
     def refresh_data(self):
         """Refresh all data displays."""
@@ -792,21 +716,12 @@ Please check the logs for more information.
             if self.tool_manager:
                 # Get actual tools from tool manager
                 try:
-                    tools_list = self.tool_manager.list_tools()
+                    tools = self.tool_manager.get_available_tools()
                     
-                    if tools_list:
-                        for tool in tools_list:
-                            tool_name = tool.get('name', 'Unknown')
-                            description = tool.get('description', 'No description available')
-                            usage_count = tool.get('usage_count', 0)
-                            is_generated = tool.get('is_generated', False)
-                            
+                    if tools:
+                        for tool_name, tool_info in tools.items():
+                            description = tool_info.get('description', 'No description available')
                             tool_display = f"{tool_name} - {description}"
-                            if usage_count > 0:
-                                tool_display += f" (used {usage_count}x)"
-                            if is_generated:
-                                tool_display += " [Generated]"
-                                
                             self.tools_listbox.insert(tk.END, tool_display)
                     else:
                         self.tools_listbox.insert(tk.END, "No tools available in tool manager")

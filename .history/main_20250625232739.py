@@ -170,11 +170,14 @@ class PrometheusOrchestrator:
             self.is_running = True
             self._initialize_population()
             self.tui.log_action("Evolution", "Starting population-based evolution loop", "INFO")
+            
             while self.is_running and not self.shutdown_requested and self.current_iteration < config.max_iterations:
                 self.current_iteration += 1
                 self.tui.update_iteration(self.current_iteration)
+                
                 logger.info(f"Starting evolution iteration {self.current_iteration}")
                 self.tui.log_action("Evolution", f"Iteration {self.current_iteration} started", "INFO")
+                
                 # Tournament selection: select parents
                 all_gens = list(self.archive.generations.values())
                 if len(all_gens) < self.population_size:
@@ -182,39 +185,50 @@ class PrometheusOrchestrator:
                 else:
                     sorted_gens = sorted(all_gens, key=lambda g: g.performance_score, reverse=True)
                     parents = sorted_gens[:self.population_size]
+                
                 # Create next generation
                 next_population = []
                 for _ in range(self.population_size):
                     import random
                     parent_a, parent_b = random.sample(parents, 2)
+                    
                     # Crossover
                     child_code = self.mutator.apply_crossover(
                         parent_a.get_source_code(), parent_b.get_source_code()
                     )
+                    
                     # Mutation
                     child_agent = PrometheusAgent(project_root=self.project_root)
                     child_agent.generation = max(parent_a.generation, parent_b.generation) + 1
                     child_agent.parent_id = random.choice([parent_a.agent_id, parent_b.agent_id])
+                    
                     # Apply mutation (self-reflection)
                     perf_logs = "Population-based evolution mutation"
                     improved_code_json = child_agent.self_reflect_and_improve(child_code, perf_logs)
+                    
                     # Optionally, update child_agent's code here
                     next_population.append(child_agent)
+                
                 # Evaluate all children
                 evaluation_results = []
                 for agent in next_population:
                     results = self.evaluator.evaluate_agent(agent)
                     evaluation_results.append((agent, results))
+                
                 # Elitism: keep top P performers
                 scored_agents = [(agent, self._calculate_agent_score(results)) for agent, results in evaluation_results]
                 scored_agents.sort(key=lambda x: x[1], reverse=True)
                 elites = [agent for agent, _ in scored_agents[:self.elite_count]]
+                
                 # Archive all children
                 for agent, _ in scored_agents:
                     self.archive.archive_agent(agent)
+                
                 self.population = elites + [agent for agent, _ in scored_agents[self.elite_count:self.population_size]]
+                
                 # Dump state for GUI
                 self._dump_state_to_file()
+                
                 # Check for stagnation
                 best_score = scored_agents[0][1] if scored_agents else 0.0
                 if best_score > self.best_score:
@@ -222,11 +236,16 @@ class PrometheusOrchestrator:
                     self.stagnation_counter = 0
                 else:
                     self.stagnation_counter += 1
+                
                 if self.stagnation_counter >= config.stagnation_limit:
                     self.tui.log_action("Evolution", "Stagnation detected, resetting population", "WARNING")
                     self._initialize_population()
+                
                 time.sleep(1)
+            
+            # Shutdown
             self._shutdown_evolution()
+            
         except Exception as e:
             logger.error(f"Evolution loop failed: {e}")
             self.tui.log_action("Evolution", f"Evolution failed: {e}", "ERROR")

@@ -437,30 +437,25 @@ class CodeMutator:
             "sessions": sorted(backups, key=lambda x: x["created"], reverse=True)
         }
     
-    def apply_crossover(self, parent_a_code: Dict[str, str], parent_b_code: Dict[str, str]) -> Dict[str, str]:
+    def apply_crossover(self, parent_a_code: dict, parent_b_code: dict) -> dict:
         """
-        Combine code from two parents to create a new child agent's code.
-        For demonstration: take solve_task from parent A and _research_improvements from parent B.
+        Combine code from two parents. For simplicity, swap key functions between files.
+        Returns a new code dict for the child.
         """
         import re
-        child_code = dict(parent_a_code)  # Start with parent A's code
-        # For each file, try to replace _research_improvements in A with B's version
+        child_code = parent_a_code.copy()
         for file_path in child_code:
             if file_path in parent_b_code:
-                # Replace _research_improvements in child_code with B's version
-                a_content = child_code[file_path]
-                b_content = parent_b_code[file_path]
-                # Find _research_improvements in both
-                def extract_func(content, func_name):
-                    pattern = rf'(def {func_name}\s*\(.*?\):[\s\S]*?)(?=^def |^class |\Z)'
-                    match = re.search(pattern, content, re.MULTILINE)
-                    return match.group(1) if match else None
-                b_research = extract_func(b_content, '_research_improvements')
-                if b_research:
-                    # Replace in a_content
-                    pattern = rf'(def _research_improvements\s*\(.*?\):[\s\S]*?)(?=^def |^class |\Z)'
-                    a_content_new = re.sub(pattern, b_research, a_content, flags=re.MULTILINE)
-                    child_code[file_path] = a_content_new
+                # Example: swap the solve_task or _research_improvements function
+                code_a = child_code[file_path]
+                code_b = parent_b_code[file_path]
+                for func in ["solve_task", "_research_improvements"]:
+                    pattern = rf"(def {func}\(.*?\):[\s\S]*?)(?=^def |^class |\Z)"
+                    match_b = re.search(pattern, code_b, re.MULTILINE)
+                    if match_b:
+                        # Replace in A with B's version
+                        code_a = re.sub(pattern, match_b.group(1), code_a, flags=re.MULTILINE)
+                child_code[file_path] = code_a
         return child_code
 
 if __name__ == "__main__":

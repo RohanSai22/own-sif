@@ -1,5 +1,5 @@
 """
-Test Agent Archive and Evolution System
+Test Agent Archive and Evolution System.
 Tests if the Darwinian Gödeli Machine (DGM) logic is working correctly.
 """
 
@@ -47,17 +47,20 @@ def test_agent_evolution():
             generation=1,
             parent_id=None,
             performance_score=0.65,
+            success_rate=0.5,
+            total_tasks=2,
             task_results=[
                 {"task_id": "task_1", "success": True, "score": 0.8},
                 {"task_id": "task_2", "success": False, "score": 0.5}
             ],
             mutations_applied=["added_error_handling", "improved_search"],
             created_at=datetime.now(),
-            source_code="def solve_task(): pass"
+            source_code="def solve_task(): pass",
+            metadata={}
         )
         
         # Save to archive
-        archive.save_generation(generation1)
+        archive._save_generation(generation1)
         
         print(f"✅ SUCCESS: Created and saved generation 1")
         
@@ -83,16 +86,19 @@ def test_agent_evolution():
             generation=2,
             parent_id="test_agent_001",
             performance_score=0.75,  # Improved score
+            success_rate=0.75,
+            total_tasks=2,
             task_results=[
                 {"task_id": "task_1", "success": True, "score": 0.9},
                 {"task_id": "task_2", "success": True, "score": 0.6}
             ],
             mutations_applied=["fixed_unicode_bug", "better_error_search"],
             created_at=datetime.now(),
-            source_code="def solve_task(): # improved version"
+            source_code="def solve_task(): # improved version",
+            metadata={}
         )
         
-        archive.save_generation(generation2)
+        archive._save_generation(generation2)
         
         print(f"✅ SUCCESS: Created evolved generation 2")
         

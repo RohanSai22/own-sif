@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-06-26T00:12:05.910248",
+  "generation": 0,
+  "current_iteration": 0,
+  "is_running": false,
+  "population_size": 0,
+  "population_scores": [],
+  "best_score": 0.0,
+  "stagnation_counter": 0,
+  "current_agent_id": null,
+  "archive_size": 3,
+  "status": "stopped"
+}

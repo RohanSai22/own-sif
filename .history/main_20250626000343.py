@@ -151,41 +151,6 @@ class PrometheusOrchestrator:
             # Use first agent from population
             self.current_agent = self.population[0]
     
-    def _initialize_population(self):
-        """Initialize the population for population-based evolution."""
-        self.tui.log_action("Population", f"Initializing population of {config.population_size} agents", "INFO")
-        
-        # Get existing agents from archive for seeding
-        existing_agents = list(self.archive.generations.keys())
-        
-        self.population = []
-        for i in range(config.population_size):
-            if i < len(existing_agents) and existing_agents:
-                # Seed from existing agents
-                parent_id = existing_agents[i % len(existing_agents)]
-                parent_generation = self.archive.generations[parent_id]
-                
-                agent = PrometheusAgent(project_root=self.project_root)
-                agent.generation = self.generation
-                agent.parent_id = parent_id
-                
-                self.tui.log_action("Population", f"Agent {i+1} seeded from {parent_id}", "INFO")
-            else:
-                # Create new genesis agent
-                agent = PrometheusAgent(project_root=self.project_root)
-                agent.generation = self.generation
-                agent.parent_id = None
-                
-                self.tui.log_action("Population", f"Agent {i+1} created as genesis", "INFO")
-            
-            self.population.append(agent)
-        
-        # Initialize scores
-        self.population_scores = [0.0] * len(self.population)
-        
-        # Set current agent for compatibility
-        self.current_agent = self.population[0] if self.population else None
-    
     def run_evolution_loop(self):
         """Run the main population-based evolution loop."""
         try:
@@ -202,9 +167,6 @@ class PrometheusOrchestrator:
                 
                 logger.info(f"Starting evolution generation {self.generation}")
                 self.tui.log_action("Evolution", f"Generation {self.generation} started", "INFO")
-                
-                # Write live state for GUI
-                self._write_live_state()
                 
                 # 1. Evaluate population
                 all_evaluation_results = self._evaluate_population()
@@ -261,9 +223,6 @@ class PrometheusOrchestrator:
                     
                     # Update current agent for compatibility
                     self.current_agent = self.population[0] if self.population else None
-                
-                # Write final state for this generation
-                self._write_live_state()
                 
                 # Brief pause between generations
                 time.sleep(1)

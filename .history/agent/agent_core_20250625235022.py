@@ -463,75 +463,21 @@ Based on this analysis, propose specific code improvements:
             return f"Error research failed: {e}"
 
     def _research_improvements(self, weaknesses: str) -> str:
-        """Research potential improvements using web search as designed."""
+        """Research potential improvements based on internal analysis only."""
         try:
-            tui.log_thought("Researching improvements via web search...")
+            # Instead of web search, use internal analysis and knowledge
+            tui.log_thought("Analyzing weaknesses using internal knowledge...")
             
-            # Generate focused search queries using LLM
-            query_prompt = f"""
-Based on these identified weaknesses in a software engineering AI agent:
-
-{weaknesses}
-
-Generate 3-4 focused search queries to find specific solutions, techniques, or best practices that could address these issues. Focus on:
-- Specific technical solutions
-- Algorithm improvements  
-- Error handling patterns
-- Performance optimization techniques
-
-Return only the search queries, one per line.
-"""
+            # Generate improvement suggestions based on known patterns
+            research_findings = [
+                "Performance Analysis: Focus on improving algorithm efficiency and reducing computational complexity",
+                "Code Quality: Implement better error handling and validation to prevent failures",
+                "Testing Strategy: Enhance testing coverage and add edge case validation",
+                "Resource Management: Optimize memory usage and processing time",
+                "Error Recovery: Implement robust fallback mechanisms for failed operations"
+            ]
             
-            response = self.llm_client.query(query_prompt, temperature=0.3)
-            search_queries = [q.strip() for q in response.split('\n') if q.strip()]
-            
-            # Perform web searches
-            research_findings = []
-            for query in search_queries[:3]:  # Limit to 3 queries
-                try:
-                    tui.log_thought(f"Searching: {query}")
-                    search_results = self.tool_manager.execute_tool("web_search", {"query": query})
-                    
-                    if search_results and search_results.get("success"):
-                        research_findings.append(f"Query: {query}")
-                        for result in search_results.get("results", [])[:2]:  # Top 2 results per query
-                            research_findings.append(f"- {result.get('title', 'Unknown')}: {result.get('snippet', 'No description')}")
-                    
-                except Exception as e:
-                    logger.warning(f"Web search failed for query '{query}': {e}")
-                    research_findings.append(f"Search failed for: {query}")
-            
-            # If web search fails completely, fall back to internal analysis
-            if not research_findings:
-                tui.log_thought("Web search unavailable, using internal analysis...")
-                research_findings = [
-                    "Performance Analysis: Focus on improving algorithm efficiency and reducing computational complexity",
-                    "Code Quality: Implement better error handling and validation to prevent failures", 
-                    "Testing Strategy: Enhance testing coverage and add edge case validation",
-                    "Resource Management: Optimize memory usage and processing time",
-                    "Error Recovery: Implement robust fallback mechanisms for failed operations"
-                ]
-            
-            # Synthesize findings using LLM
-            synthesis_prompt = f"""
-Based on the following research findings about software engineering improvements:
-
-{chr(10).join(research_findings)}
-
-And the specific weaknesses identified:
-{weaknesses}
-
-Synthesize the most relevant and actionable improvement recommendations. Focus on concrete technical solutions that can be implemented in code. Provide 3-5 specific recommendations.
-"""
-            
-            synthesized_recommendations = self.llm_client.query(synthesis_prompt, temperature=0.4)
-            
-            return f"Research Findings:\n{chr(10).join(research_findings)}\n\nSynthesized Recommendations:\n{synthesized_recommendations}"
-            
-        except Exception as e:
-            logger.error(f"Research improvements failed: {e}")
-            # Fallback to basic internal analysis
-            return f"Research failed ({e}), using basic analysis: Focus on error handling, performance optimization, and robust testing patterns."
+            # Filter findings based on weaknesses
             relevant_findings = []
             weakness_lower = weaknesses.lower()
             

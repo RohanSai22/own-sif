@@ -1146,3 +1146,41 @@ got 3 SIGTERM/SIGINTs, forcefully exiting
 2025-06-25 22:14:30,417 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
 2025-06-25 22:14:30,710 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
 2025-06-25 22:14:31,302 - __main__ - INFO - Received signal 2, initiating graceful shutdown...
+2025-06-26 00:08:41,016 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 00:08:41,032 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 00:08:41,032 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 00:08:41,032 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 00:09:29,179 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 00:09:29,194 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 00:09:29,195 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 00:09:29,195 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 00:09:30,645 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 00:09:38,668 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 00:09:38,671 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 00:09:38,671 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 00:09:38,673 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 00:09:38,673 - agent.agent_core - INFO - Initialized agent agent_f0b3e5d2
+2025-06-26 00:09:38,682 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 00:09:38,899 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 00:09:44,646 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 00:09:44,840 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 00:09:50,031 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 00:09:50,033 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 00:09:50,227 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 00:11:45,531 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 00:11:45,546 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 00:11:45,546 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 00:11:45,546 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 00:11:46,971 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 00:11:54,780 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 00:11:54,783 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 00:11:54,784 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 00:11:54,786 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 00:11:54,786 - agent.agent_core - INFO - Initialized agent agent_13942654
+2025-06-26 00:11:54,795 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 00:11:54,984 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 00:12:00,893 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 00:12:01,087 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 00:12:05,907 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 00:12:05,909 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 00:12:06,093 - evaluation.sandbox - INFO - Docker is available and running

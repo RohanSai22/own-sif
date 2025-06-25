@@ -5,7 +5,6 @@ Main orchestrator that brings together all components for self-improving AI evol
 """
 
 import asyncio
-import json
 import logging
 import os
 import signal
@@ -13,7 +12,6 @@ import sys
 import time
 from datetime import datetime
 from typing import Dict, List, Any, Optional
-import json
 
 # Ensure UTF-8 encoding for stdout/stderr to prevent UnicodeEncodeError
 if sys.platform == "win32":
@@ -121,151 +119,93 @@ class PrometheusOrchestrator:
             return False
     
     def _initialize_agent(self):
-        """Initialize the current agent (backward compatibility method)."""
-        if not self.population:
-            # Fallback to single-agent mode
-            parent_id = self.archive.select_parent_for_next_generation()
+        """Initialize the current agent."""
+        # Check if we have existing agents in archive
+        parent_id = self.archive.select_parent_for_next_generation()
+        
+        if parent_id:
+            # Create child agent from best parent
+            parent_generation = self.archive.generations[parent_id]
             
-            if parent_id:
-                # Create child agent from best parent
-                parent_generation = self.archive.generations[parent_id]
-                
-                self.current_agent = PrometheusAgent(project_root=self.project_root)
-                self.current_agent.generation = parent_generation.generation + 1
-                self.current_agent.parent_id = parent_id
-                
-                self.best_score = parent_generation.performance_score
-                
-                self.tui.log_action("Agent", f"Created agent from parent {parent_id}", "SUCCESS")
-                self.tui.update_agent(self.current_agent.agent_id, parent_id)
-                
-            else:
-                # Create genesis agent
-                self.current_agent = PrometheusAgent(project_root=self.project_root)
-                self.current_agent.generation = 0
-                self.current_agent.parent_id = None
-                
-                self.tui.log_action("Agent", f"Created genesis agent {self.current_agent.agent_id}", "SUCCESS")
-                self.tui.update_agent(self.current_agent.agent_id, None)
+            self.current_agent = PrometheusAgent(project_root=self.project_root)
+            self.current_agent.generation = parent_generation.generation + 1
+            self.current_agent.parent_id = parent_id
+            
+            self.best_score = parent_generation.performance_score
+            
+            self.tui.log_action("Agent", f"Created agent from parent {parent_id}", "SUCCESS")
+            self.tui.update_agent(self.current_agent.agent_id, parent_id)
+            
         else:
-            # Use first agent from population
-            self.current_agent = self.population[0]
-    
-    def _initialize_population(self):
-        """Initialize the population for population-based evolution."""
-        self.tui.log_action("Population", f"Initializing population of {config.population_size} agents", "INFO")
-        
-        # Get existing agents from archive for seeding
-        existing_agents = list(self.archive.generations.keys())
-        
-        self.population = []
-        for i in range(config.population_size):
-            if i < len(existing_agents) and existing_agents:
-                # Seed from existing agents
-                parent_id = existing_agents[i % len(existing_agents)]
-                parent_generation = self.archive.generations[parent_id]
-                
-                agent = PrometheusAgent(project_root=self.project_root)
-                agent.generation = self.generation
-                agent.parent_id = parent_id
-                
-                self.tui.log_action("Population", f"Agent {i+1} seeded from {parent_id}", "INFO")
-            else:
-                # Create new genesis agent
-                agent = PrometheusAgent(project_root=self.project_root)
-                agent.generation = self.generation
-                agent.parent_id = None
-                
-                self.tui.log_action("Population", f"Agent {i+1} created as genesis", "INFO")
+            # Create genesis agent
+            self.current_agent = PrometheusAgent(project_root=self.project_root)
+            self.current_agent.generation = 0
+            self.current_agent.parent_id = None
             
-            self.population.append(agent)
-        
-        # Initialize scores
-        self.population_scores = [0.0] * len(self.population)
-        
-        # Set current agent for compatibility
-        self.current_agent = self.population[0] if self.population else None
+            self.tui.log_action("Agent", f"Created genesis agent {self.current_agent.agent_id}", "SUCCESS")
+            self.tui.update_agent(self.current_agent.agent_id, None)
     
     def run_evolution_loop(self):
-        """Run the main population-based evolution loop."""
+        """Run the main evolution loop."""
         try:
             self.is_running = True
-            self.tui.log_action("Evolution", "Starting population-based evolution loop", "INFO")
+            self.tui.log_action("Evolution", "Starting evolution loop", "INFO")
             
-            # Initialize population
-            self._initialize_population()
-            
-            while self.is_running and not self.shutdown_requested and self.generation < config.max_iterations:
-                self.generation += 1
-                self.current_iteration = self.generation  # For compatibility
-                self.tui.update_iteration(self.generation)
+            while self.is_running and not self.shutdown_requested and self.current_iteration < config.max_iterations:
+                self.current_iteration += 1
+                self.tui.update_iteration(self.current_iteration)
                 
-                logger.info(f"Starting evolution generation {self.generation}")
-                self.tui.log_action("Evolution", f"Generation {self.generation} started", "INFO")
+                logger.info(f"Starting evolution iteration {self.current_iteration}")
+                self.tui.log_action("Evolution", f"Iteration {self.current_iteration} started", "INFO")
                 
-                # Write live state for GUI
-                self._write_live_state()
-                
-                # 1. Evaluate population
-                all_evaluation_results = self._evaluate_population()
+                # Run evaluation phase
+                evaluation_results = self._run_evaluation_phase()
                 
                 if self.shutdown_requested:
                     break
                 
-                # 2. Archive current population
-                self._archive_population(all_evaluation_results)
+                # Calculate current performance
+                current_score = self._calculate_agent_score(evaluation_results)
                 
-                # 3. Prune archive periodically
-                if self.generation % 10 == 0:
+                # Check for improvement
+                improvement = current_score - self.best_score
+                
+                if improvement > config.score_improvement_threshold:
+                    logger.info(f"Performance improvement detected: {improvement:.3f}")
+                    self.best_score = current_score
+                    self.stagnation_counter = 0
+                    self.tui.log_action("Evolution", f"Improvement: +{improvement:.3f}", "SUCCESS")
+                else:
+                    self.stagnation_counter += 1
+                    self.tui.log_action("Evolution", f"No improvement (stagnation: {self.stagnation_counter})", "INFO")
+                
+                # Archive current agent
+                self.archive.archive_agent(
+                    self.current_agent,
+                    metadata={
+                        "iteration": self.current_iteration,
+                        "evaluation_results": len(evaluation_results),
+                        "improvement": improvement
+                    }
+                )
+                
+                # Prune archive periodically (every 10 iterations)
+                if self.current_iteration % 10 == 0:
                     self.tui.log_action("Archive", "Pruning archive to manage size", "INFO")
                     self.archive.prune_archive(max_generations=50)
                 
-                # 4. Check for improvement
-                current_best_score = max(self.population_scores) if self.population_scores else 0.0
-                avg_score = sum(self.population_scores) / len(self.population_scores) if self.population_scores else 0.0
-                
-                self.tui.log_action("Evolution", f"Generation {self.generation}: Best={current_best_score:.3f}, Avg={avg_score:.3f}", "INFO")
-                
-                # 5. Check for stagnation
-                improvement = current_best_score - self.best_score
-                if improvement <= config.score_improvement_threshold:
-                    self.stagnation_counter += 1
-                else:
-                    self.stagnation_counter = 0
-                
+                # Check for stagnation
                 if self.stagnation_counter >= config.stagnation_limit:
-                    logger.info("Population stagnation detected, introducing diversity")
-                    self.tui.log_action("Evolution", "Stagnation detected, introducing diversity", "INFO")
-                    
-                    # Add random agents to population for diversity
-                    num_random = config.population_size // 3
-                    for i in range(num_random):
-                        random_agent = PrometheusAgent(project_root=self.project_root)
-                        random_agent.generation = self.generation
-                        random_agent.parent_id = None
-                        self.population[-1-i] = random_agent  # Replace worst agents
-                    
-                    self.stagnation_counter = 0
+                    logger.info("Stagnation limit reached, resetting evolution")
+                    self.tui.log_action("Evolution", "Stagnation detected, resetting", "INFO")
+                    self._reset_evolution()
+                    continue
                 
-                if self.shutdown_requested:
-                    break
+                # Run self-improvement phase
+                if not self.shutdown_requested:
+                    self._run_self_improvement_phase(evaluation_results)
                 
-                # 6. Selection and reproduction
-                if self.generation < config.max_iterations:
-                    self.tui.update_status("Selecting parents and creating next generation...")
-                    parent_indices = self._select_parents()
-                    new_population = self._crossover_and_mutate(parent_indices)
-                    
-                    self.population = new_population
-                    self.population_scores = [0.0] * len(self.population)
-                    
-                    # Update current agent for compatibility
-                    self.current_agent = self.population[0] if self.population else None
-                
-                # Write final state for this generation
-                self._write_live_state()
-                
-                # Brief pause between generations
+                # Brief pause between iterations
                 time.sleep(1)
             
             # Shutdown
@@ -467,58 +407,6 @@ class PrometheusOrchestrator:
         # Stop TUI
         self.tui.update_status("Shutdown complete")
         time.sleep(2)  # Give time to read final messages
-    
-    def _write_live_state(self):
-        """Write current state to a file for the GUI to read."""
-        try:
-            live_state = {
-                "timestamp": datetime.now().isoformat(),
-                "generation": self.generation,
-                "current_iteration": self.current_iteration,
-                "is_running": self.is_running,
-                "population_size": len(self.population),
-                "population_scores": self.population_scores,
-                "best_score": self.best_score,
-                "stagnation_counter": self.stagnation_counter,
-                "current_agent_id": self.current_agent.agent_id if self.current_agent else None,
-                "archive_size": len(self.archive.generations),
-                "status": "evolving" if self.is_running else "stopped"
-            }
-            
-            live_state_path = os.path.join(self.project_root, "archive", "live_state.json")
-            with open(live_state_path, 'w', encoding='utf-8') as f:
-                json.dump(live_state, f, indent=2)
-                
-        except Exception as e:
-            logger.error(f"Failed to write live state: {e}")
-
-    def _archive_population(self, all_evaluation_results: List[List[Any]]):
-        """Archive the current population and their evaluation results."""
-        try:
-            self.tui.log_action("Archive", "Archiving current population...", "INFO")
-            
-            for agent, evaluation_results in zip(self.population, all_evaluation_results):
-                # Calculate agent score
-                agent_score = self._calculate_agent_score(evaluation_results)
-                agent.performance_score = agent_score
-                
-                # Archive agent
-                self.archive.archive_agent(agent, metadata={"generation": self.generation})
-            
-            # Update population scores
-            self.population_scores = [agent.performance_score for agent in self.population]
-            
-            # Update best score
-            self.best_score = max(self.population_scores, default=0.0)
-            
-            self.tui.log_action("Archive", f"Archived {len(self.population)} agents", "SUCCESS")
-            
-            # Write live state for GUI
-            self._write_live_state()
-            
-        except Exception as e:
-            logger.error(f"Failed to archive population: {e}")
-            self.tui.log_action("Archive", f"Archiving failed: {e}", "ERROR")
     
     def run(self):
         """Main entry point to run Prometheus 2.0."""

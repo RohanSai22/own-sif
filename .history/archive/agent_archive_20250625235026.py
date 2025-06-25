@@ -46,7 +46,7 @@ class AgentArchive:
         self._load_archive()
     
     def _load_archive(self):
-        """Load existing generations from disk with robust backward compatibility."""
+        """Load existing generations from disk."""
         if not os.path.exists(self.archive_dir):
             return
         
@@ -57,31 +57,16 @@ class AgentArchive:
                     generation_data = self._load_generation_data(agent_id)
                     
                     if generation_data:
-                        # Handle both old and new field names for mutations
-                        mutations = []
-                        if "mutations_applied" in generation_data:
-                            mutations = generation_data["mutations_applied"]
-                        elif "mutation_changes" in generation_data:
-                            mutations = generation_data["mutation_changes"]
-                        
-                        # Handle datetime parsing with fallback
-                        created_at = datetime.now()
-                        if "created_at" in generation_data:
-                            try:
-                                created_at = datetime.fromisoformat(generation_data["created_at"])
-                            except (ValueError, TypeError):
-                                logger.warning(f"Invalid datetime format for {agent_id}, using current time")
-                        
                         generation = AgentGeneration(
-                            agent_id=generation_data.get("agent_id", agent_id),
-                            generation=generation_data.get("generation", 0),
+                            agent_id=generation_data["agent_id"],
+                            generation=generation_data["generation"],
                             parent_id=generation_data.get("parent_id"),
-                            created_at=created_at,
-                            performance_score=generation_data.get("performance_score", 0.0),
-                            success_rate=generation_data.get("success_rate", 0.0),
-                            total_tasks=generation_data.get("total_tasks", 0),
+                            created_at=datetime.fromisoformat(generation_data["created_at"]),
+                            performance_score=generation_data["performance_score"],
+                            success_rate=generation_data["success_rate"],
+                            total_tasks=generation_data["total_tasks"],
                             task_results=generation_data.get("task_results", []),
-                            mutations_applied=mutations,
+                            mutations_applied=generation_data.get("mutation_changes", []),  # Map mutation_changes to mutations_applied
                             source_code=generation_data.get("source_code", ""),
                             metadata=generation_data.get("metadata", {})
                         )

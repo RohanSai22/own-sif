@@ -110,124 +110,56 @@ class DockerSandbox:
         python_version: str
     ) -> str:
         """Generate a robust multi-stage Dockerfile for the evaluation environment."""
-        
-        # Parse Python version to get major.minor
-        version_parts = python_version.split('.')
-        if len(version_parts) >= 2:
-            py_major_minor = f"{version_parts[0]}.{version_parts[1]}"
-        else:
-            py_major_minor = "3.11"  # fallback
-        
-        dockerfile = f"""# Multi-stage build for robust SWE-bench evaluation
+        dockerfile = f"""
 FROM python:{python_version}-slim AS base
-
-# Install system dependencies
 RUN apt-get update && apt-get install -y \\
     git \\
     build-essential \\
     python3-dev \\
     pkg-config \\
-    curl \\
-    wget \\
-    unzip \\
-    libffi-dev \\
-    libssl-dev \\
-    libyaml-dev \\
     && rm -rf /var/lib/apt/lists/*
-
-# Upgrade pip and core packages
-RUN pip install --no-cache-dir --upgrade pip setuptools wheel
-
+RUN pip install --upgrade pip setuptools wheel
 WORKDIR /workspace
 
-# Stage 1: Dependency verification
+# Stage 1: Pre-flight dependency check
 FROM base AS depcheck
-COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
-
-# Install and verify dependencies with better error handling
+COPY requirements.txt .
 RUN set -e; \\
-    if [ -s /tmp/requirements.txt ] && ! grep -q "^#.*No requirements" /tmp/requirements.txt; then \\
-        echo "Installing dependencies from requirements.txt..."; \\
-        pip install --no-cache-dir -r /tmp/requirements.txt || echo "Some dependencies failed, continuing..."; \\
-    fi
+    for pkg in $(cat requirements.txt); do \\
+        pip install --no-cache-dir "$$pkg" || (echo "Dependency $$pkg failed to install" && exit 77); \\
+    done
 
-# Install common packages for SWE-bench compatibility  
-RUN pip install --no-cache-dir \\
-    pytest \\
-    coverage \\
-    flake8 \\
-    mypy \\
-    tox \\
-    setuptools-scm \\
-    wheel \\
-    || echo "Some common packages failed to install"
-
-# Stage 2: Repository setup and testing
+# Stage 2: Build and test
 FROM base AS build
 WORKDIR /workspace
-
-# Copy installed packages from depcheck stage
-COPY --from=depcheck /usr/local/lib/python{py_major_minor}/site-packages /usr/local/lib/python{py_major_minor}/site-packages
-COPY --from=depcheck /usr/local/bin /usr/local/bin
-
-# Clone and setup repository with error handling
-RUN set -e; \\
-    echo "Cloning repository: {repo_url}"; \\
-    git clone {repo_url} repo 2>/dev/null || \\
-    (echo "Failed to clone {repo_url}, using fallback" && mkdir -p repo); \\
-    cd repo && \\
-    (git checkout {commit_hash} 2>/dev/null || echo "Failed to checkout {commit_hash}, using HEAD")
-
+COPY --from=depcheck /usr/local/lib/python3.*/site-packages /usr/local/lib/python3.*/site-packages
+RUN git clone {repo_url} repo
 WORKDIR /workspace/repo
-
-# Handle Python compatibility issues for legacy repos
-RUN find . -name "*.py" -type f -exec sed -i 's/collections\\.MutableMapping/collections.abc.MutableMapping/g' {{}} \\; 2>/dev/null || true
-RUN find . -name "*.py" -type f -exec sed -i 's/collections\\.MutableSequence/collections.abc.MutableSequence/g' {{}} \\; 2>/dev/null || true  
-RUN find . -name "*.py" -type f -exec sed -i 's/from imp import/from importlib import/g' {{}} \\; 2>/dev/null || true
-
-# Install repository in development mode with multiple fallbacks
-RUN set -e; \\
-    if [ -f pyproject.toml ]; then \\
-        echo "Installing via pyproject.toml..."; \\
-        pip install --no-cache-dir -e . || \\
-        pip install --no-cache-dir --no-build-isolation -e . || \\
-        echo "pyproject.toml installation failed, trying setup.py"; \\
-    fi; \\
-    if [ -f setup.py ]; then \\
-        echo "Installing via setup.py..."; \\
-        pip install --no-cache-dir -e . || \\
-        pip install --no-cache-dir --no-build-isolation -e . || \\
-        python setup.py develop || \\
-        echo "setup.py installation failed, proceeding anyway"; \\
-    fi
-
-# Install additional requirements if present
+RUN git checkout {commit_hash}
+# Fix Python compatibility issues for older repos
+RUN if [ -f setup.py ]; then \\
+    find . -name "*.py" -type f -exec sed -i 's/collections\\.MutableSequence/collections.abc.MutableSequence/g' {{}} \\; 2>/dev/null || true; \\
+    find . -name "*.py" -type f -exec sed -i 's/from setuptools\\.dep_util import/from distutils.dep_util import/g' {{}} \\; 2>/dev/null || true; \\
+    find . -name "*.py" -type f -exec sed -i 's/setuptools\\.dep_util/distutils.dep_util/g' {{}} \\; 2>/dev/null || true; \\
+fi
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt || true
 RUN if [ -f requirements.txt ]; then \\
-        pip install --no-cache-dir -r requirements.txt || true; \\
-    fi; \\
-    if [ -f requirements-dev.txt ]; then \\
-        pip install --no-cache-dir -r requirements-dev.txt || true; \\
-    fi; \\
-    if [ -f dev-requirements.txt ]; then \\
-        pip install --no-cache-dir -r dev-requirements.txt || true; \\
-    fi
-
-# Setup test environment
-RUN echo '#!/bin/bash' > /entrypoint.sh && \\
-    echo 'set -e' >> /entrypoint.sh && \\
-    echo 'echo "=== SWE-bench Environment Ready ==="' >> /entrypoint.sh && \\
-    echo 'echo "Python version: $(python --version)"' >> /entrypoint.sh && \\
-    echo 'echo "Working directory: $(pwd)"' >> /entrypoint.sh && \\
-    echo 'echo "Repository info: $(git log --oneline -1 2>/dev/null || echo 'No git info')"' >> /entrypoint.sh && \\
-    echo 'echo "====================================="' >> /entrypoint.sh && \\
-    echo 'exec "$@"' >> /entrypoint.sh && \\
-    chmod +x /entrypoint.sh
-
-# Set environment variables for better test execution
-ENV PYTHONPATH=/workspace/repo:$PYTHONPATH
-ENV PYTHONUNBUFFERED=1
-ENV PIP_NO_CACHE_DIR=1
-
+    pip install --no-cache-dir -r requirements.txt || true; \\
+fi
+RUN if [ -f setup.py ]; then \\
+    pip install --no-cache-dir -e . || \\
+    pip install --no-cache-dir --no-build-isolation -e . || \\
+    python setup.py develop || \\
+    echo "Failed to install package in development mode, proceeding anyway"; \\
+fi
+RUN if [ -f pyproject.toml ]; then \\
+    pip install --no-cache-dir -e . || \\
+    pip install --no-cache-dir --no-build-isolation -e . || \\
+    echo "Failed to install package via pyproject.toml, proceeding anyway"; \\
+fi
+RUN pip install --no-cache-dir pytest coverage astropy-helpers extension-helpers || true
+RUN echo '#!/bin/bash\nset -e\necho "Environment ready"\nexec "$@"' > /entrypoint.sh && chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]
 """

@@ -319,6 +319,15 @@ class SWEBenchHarness:
         
         logger.warning("No valid patch format found in solution")
         return None
+index 0000000..1234567
+--- /dev/null
++++ b/solution.py
+@@ -0,0 +1,{len(code_blocks[0].split(chr(10)))} @@
+{chr(10).join('+' + line for line in code_blocks[0].split(chr(10)))}
+"""
+            return patch
+        
+        return None
     
     def _prepare_test_commands(self, instance: Dict[str, Any], test_patch: str) -> List[str]:
         """Prepare test commands for the instance."""

@@ -774,61 +774,14 @@ Please check the logs for more information.
             self.agent_details_text.insert(1.0, error_details)
     
     def refresh_data(self):
-        """Refresh all data displays using live state from backend."""
+        """Refresh all data displays."""
         try:
-            # Try to read live state from backend
-            live_state_path = os.path.join(self.project_root, "archive", "live_state.json")
-            live_state = None
-            
-            if os.path.exists(live_state_path):
-                try:
-                    with open(live_state_path, 'r', encoding='utf-8') as f:
-                        live_state = json.load(f)
-                    
-                    # Update from live state
-                    self.current_iteration = live_state.get("generation", 0)
-                    self.best_score = live_state.get("best_score", 0.0)
-                    self.current_agent_id = live_state.get("current_agent_id", "unknown")
-                    self.is_running = live_state.get("is_running", False)
-                    
-                    # Update status
-                    status = live_state.get("status", "unknown")
-                    population_size = live_state.get("population_size", 0)
-                    if population_size > 0:
-                        self.current_status = f"{status} (Population: {population_size})"
-                    else:
-                        self.current_status = status
-                    
-                    # Update performance data with population scores
-                    population_scores = live_state.get("population_scores", [])
-                    if population_scores:
-                        avg_score = sum(population_scores) / len(population_scores)
-                        self.success_rate = avg_score * 100  # Convert to percentage
-                        
-                        # Add to performance history
-                        timestamp = datetime.now()
-                        self.agent_performance.append({
-                            'timestamp': timestamp,
-                            'score': self.best_score,
-                            'avg_score': avg_score,
-                            'generation': self.current_iteration
-                        })
-                        
-                        # Keep only recent history
-                        if len(self.agent_performance) > 100:
-                            self.agent_performance = self.agent_performance[-100:]
-                    
-                except Exception as e:
-                    logger.warning(f"Failed to read live state: {e}")
-            
-            # Update displays
             self.update_quick_stats()
             self.update_performance_charts()
             self.load_available_tools()
             self.load_generation_history()
             
         except Exception as e:
-            logger.error(f"Error refreshing data: {e}")
             pass
     
     def load_available_tools(self):

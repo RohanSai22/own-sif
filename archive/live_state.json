@@ -1,13 +1,19 @@
 {
-  "timestamp": "2025-06-26T00:12:05.910248",
-  "generation": 0,
-  "current_iteration": 0,
-  "is_running": false,
-  "population_size": 0,
-  "population_scores": [],
+  "timestamp": "2025-06-26T07:36:43.873155",
+  "generation": 1,
+  "current_iteration": 1,
+  "is_running": true,
+  "population_size": 5,
+  "population_scores": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
   "best_score": 0.0,
   "stagnation_counter": 0,
-  "current_agent_id": null,
-  "archive_size": 3,
-  "status": "stopped"
+  "current_agent_id": "agent_b9f8c2cd",
+  "archive_size": 6,
+  "status": "evolving"
 }

@@ -1184,3 +1184,650 @@ got 3 SIGTERM/SIGINTs, forcefully exiting
 2025-06-26 00:12:05,907 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
 2025-06-26 00:12:05,909 - archive.agent_archive - INFO - Loaded 3 generations from archive
 2025-06-26 00:12:06,093 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:09:49,997 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 01:09:49,999 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 01:09:50,000 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 01:09:50,000 - agent.agent_core - INFO - Initialized agent agent_6e72a202
+2025-06-26 01:09:50,197 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:09:57,653 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 01:09:57,656 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 01:09:57,855 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:10:04,028 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 01:10:04,031 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 01:15:33,306 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 01:15:33,307 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 01:15:33,308 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 01:15:33,309 - agent.agent_core - INFO - Initialized agent agent_f85cc749
+2025-06-26 01:15:33,498 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:15:42,866 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 01:15:42,868 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 01:15:43,067 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:15:49,262 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 01:15:49,265 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 01:17:09,217 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 01:17:09,219 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 01:17:09,220 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 01:17:09,220 - agent.agent_core - INFO - Initialized agent agent_3079237a
+2025-06-26 01:17:09,421 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:17:16,853 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 01:17:16,856 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 01:17:17,043 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:17:22,727 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 01:17:22,730 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 01:19:39,945 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 01:19:39,946 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 01:19:39,947 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 01:19:39,947 - agent.agent_core - INFO - Initialized agent agent_8a4270d5
+2025-06-26 01:19:40,127 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:19:47,775 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 01:19:47,779 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 01:19:47,962 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 01:19:53,424 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 01:19:53,427 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 01:20:46,969 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 01:20:46,984 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 01:20:46,985 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 01:20:46,985 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 07:00:44,529 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 07:00:44,544 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 07:00:44,544 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 07:00:44,544 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 07:00:46,605 - __main__ - ERROR - Fatal error in main: Docker is not running or not accessible
+2025-06-26 07:02:05,956 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 07:02:05,971 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 07:02:05,971 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 07:02:05,971 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 07:02:07,400 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 07:02:16,083 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 07:02:16,086 - archive.agent_archive - INFO - Loaded 3 generations from archive
+2025-06-26 07:02:16,087 - __main__ - INFO - Initializing Prometheus 2.0...
+2025-06-26 07:02:17,748 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-26 07:02:18,272 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-26 07:02:18,892 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:02:18,893 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:02:18,894 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:02:18,894 - agent.agent_core - INFO - Initialized agent agent_00ba0725
+2025-06-26 07:02:18,894 - __main__ - INFO - Prometheus 2.0 initialization complete
+2025-06-26 07:02:18,895 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:02:18,896 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:02:18,896 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:02:18,896 - agent.agent_core - INFO - Initialized agent agent_26c8d443
+2025-06-26 07:02:18,897 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:02:18,898 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:02:18,898 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:02:18,899 - agent.agent_core - INFO - Initialized agent agent_3c5ac2ad
+2025-06-26 07:02:18,899 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:02:18,900 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:02:18,900 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:02:18,900 - agent.agent_core - INFO - Initialized agent agent_1661ebe2
+2025-06-26 07:02:18,901 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:02:18,902 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:02:18,902 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:02:18,902 - agent.agent_core - INFO - Initialized agent agent_cf663af2
+2025-06-26 07:02:18,903 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:02:18,903 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:02:18,904 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:02:18,904 - agent.agent_core - INFO - Initialized agent agent_9397876a
+2025-06-26 07:02:18,905 - __main__ - INFO - Starting evolution generation 1
+2025-06-26 07:02:18,906 - __main__ - ERROR - Evolution loop failed: 'PrometheusOrchestrator' object has no attribute '_evaluate_population'
+2025-06-26 07:02:18,907 - __main__ - INFO - Shutting down Prometheus 2.0...
+2025-06-26 07:02:18,908 - tools.base_tools - INFO - Read file: agent/agent_core.py (53196 chars)
+2025-06-26 07:02:18,908 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:02:18,910 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:02:18,910 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:02:18,912 - archive.agent_archive - INFO - Archived agent agent_26c8d443 (generation 0)
+2025-06-26 07:04:34,727 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 07:04:34,742 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 07:04:34,742 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 07:04:34,743 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 07:04:36,138 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 07:04:44,929 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 07:04:44,933 - archive.agent_archive - INFO - Loaded 4 generations from archive
+2025-06-26 07:04:44,935 - __main__ - INFO - Initializing Prometheus 2.0...
+2025-06-26 07:04:46,343 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-26 07:04:46,589 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-26 07:04:48,289 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:04:48,291 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:04:48,292 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:04:48,293 - agent.agent_core - INFO - Initialized agent agent_fb09e08c
+2025-06-26 07:04:48,294 - __main__ - INFO - Prometheus 2.0 initialization complete
+2025-06-26 07:04:48,295 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:04:48,296 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:04:48,297 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:04:48,297 - agent.agent_core - INFO - Initialized agent agent_d2b21132
+2025-06-26 07:04:48,299 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:04:48,300 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:04:48,301 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:04:48,301 - agent.agent_core - INFO - Initialized agent agent_51897dbb
+2025-06-26 07:04:48,303 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:04:48,305 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:04:48,305 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:04:48,306 - agent.agent_core - INFO - Initialized agent agent_4dd27f3a
+2025-06-26 07:04:48,307 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:04:48,308 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:04:48,309 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:04:48,310 - agent.agent_core - INFO - Initialized agent agent_c21f7c2c
+2025-06-26 07:04:48,311 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:04:48,312 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:04:48,313 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:04:48,313 - agent.agent_core - INFO - Initialized agent agent_ab87fe42
+2025-06-26 07:04:48,314 - __main__ - INFO - Starting evolution generation 1
+2025-06-26 07:04:48,316 - __main__ - ERROR - Evolution loop failed: 'PrometheusOrchestrator' object has no attribute '_evaluate_population'
+2025-06-26 07:04:48,317 - __main__ - INFO - Shutting down Prometheus 2.0...
+2025-06-26 07:04:48,318 - tools.base_tools - INFO - Read file: agent/agent_core.py (53196 chars)
+2025-06-26 07:04:48,319 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:04:48,320 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:04:48,320 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:04:48,323 - archive.agent_archive - INFO - Archived agent agent_d2b21132 (generation 0)
+2025-06-26 07:06:58,141 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 07:06:58,156 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 07:06:58,157 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 07:06:58,157 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 07:06:59,593 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 07:08:36,286 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 07:08:36,301 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 07:08:36,301 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 07:08:36,301 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 07:08:37,697 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 07:08:46,078 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 07:08:46,079 - archive.agent_archive - INFO - Loaded 0 generations from archive
+2025-06-26 07:08:46,082 - __main__ - INFO - Initializing Prometheus 2.0...
+2025-06-26 07:08:47,391 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-26 07:08:47,670 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-26 07:08:49,440 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:08:49,442 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:08:49,443 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:08:49,444 - agent.agent_core - INFO - Initialized agent agent_e2a28622
+2025-06-26 07:08:49,445 - __main__ - INFO - Prometheus 2.0 initialization complete
+2025-06-26 07:08:49,446 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:08:49,447 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:08:49,448 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:08:49,449 - agent.agent_core - INFO - Initialized agent agent_4bb24cf1
+2025-06-26 07:08:49,450 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:08:49,452 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:08:49,452 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:08:49,453 - agent.agent_core - INFO - Initialized agent agent_5d3b6986
+2025-06-26 07:08:49,454 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:08:49,456 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:08:49,456 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:08:49,457 - agent.agent_core - INFO - Initialized agent agent_e5f1a27a
+2025-06-26 07:08:49,458 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:08:49,459 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:08:49,460 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:08:49,461 - agent.agent_core - INFO - Initialized agent agent_1a82e513
+2025-06-26 07:08:49,462 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:08:49,463 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:08:49,464 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:08:49,464 - agent.agent_core - INFO - Initialized agent agent_04af7dfc
+2025-06-26 07:08:49,466 - __main__ - INFO - Starting evolution generation 1
+2025-06-26 07:08:49,467 - __main__ - ERROR - Evolution loop failed: 'PrometheusOrchestrator' object has no attribute '_evaluate_population'
+2025-06-26 07:08:49,468 - __main__ - INFO - Shutting down Prometheus 2.0...
+2025-06-26 07:08:49,469 - tools.base_tools - INFO - Read file: agent/agent_core.py (53196 chars)
+2025-06-26 07:08:49,470 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:08:49,471 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:08:49,471 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:08:49,491 - archive.agent_archive - INFO - Archived agent agent_4bb24cf1 (generation 0)
+2025-06-26 07:13:02,127 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 07:13:02,141 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 07:13:02,142 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 07:13:02,142 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 07:13:03,584 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 07:13:12,419 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 07:13:12,421 - archive.agent_archive - INFO - Loaded 1 generations from archive
+2025-06-26 07:35:54,191 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:35:54,193 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:35:54,193 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:35:54,194 - agent.agent_core - INFO - Initialized agent agent_80b6f85b
+2025-06-26 07:36:08,186 - llm_provider.unified_client - INFO - OpenAI client initialized
+2025-06-26 07:36:08,201 - llm_provider.unified_client - INFO - Groq client initialized
+2025-06-26 07:36:08,201 - llm_provider.unified_client - INFO - Gemini client initialized
+2025-06-26 07:36:08,202 - llm_provider.unified_client - INFO - Initialized providers: ['openai', 'groq', 'gemini']
+2025-06-26 07:36:09,614 - evaluation.sandbox - INFO - Docker is available and running
+2025-06-26 07:36:17,891 - evaluation.swe_bench_harness - INFO - Loaded SWE-bench dataset with 300 instances
+2025-06-26 07:36:17,893 - archive.agent_archive - INFO - Loaded 1 generations from archive
+2025-06-26 07:36:17,896 - main - INFO - Initializing Prometheus 2.0...
+2025-06-26 07:36:18,795 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+2025-06-26 07:36:19,353 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-26 07:36:20,974 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:36:20,976 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:36:20,977 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:36:20,977 - agent.agent_core - INFO - Initialized agent agent_9d324fdb
+2025-06-26 07:36:20,979 - main - INFO - Prometheus 2.0 initialization complete
+2025-06-26 07:36:20,980 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:36:20,982 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:36:20,983 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:36:20,983 - agent.agent_core - INFO - Initialized agent agent_a379fa8f
+2025-06-26 07:36:20,984 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:36:20,985 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:36:20,986 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:36:20,986 - agent.agent_core - INFO - Initialized agent agent_d541bff6
+2025-06-26 07:36:20,988 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:36:20,989 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:36:20,990 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:36:20,990 - agent.agent_core - INFO - Initialized agent agent_ec5a0770
+2025-06-26 07:36:20,991 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:36:20,992 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:36:20,993 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:36:20,993 - agent.agent_core - INFO - Initialized agent agent_bd66c70e
+2025-06-26 07:36:20,995 - tools.tool_manager - INFO - Registered 6 base tools
+2025-06-26 07:36:20,996 - tools.tool_manager - INFO - Loaded 0 generated tools
+2025-06-26 07:36:20,997 - agent.agent_core - INFO - Loaded 12 knowledge sections
+2025-06-26 07:36:20,997 - agent.agent_core - INFO - Initialized agent agent_b9f8c2cd
+2025-06-26 07:36:20,998 - main - INFO - Starting evolution generation 1
+2025-06-26 07:36:21,003 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-26 07:36:21,008 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-26 07:36:25,380 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 2.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/snu7jpxy0u1g8dtlyecs35ccu
+
+2025-06-26 07:36:25,387 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-26 07:36:26,948 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.7s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/txn363zoqdbtl2h8q4xs93mrs
+
+2025-06-26 07:36:26,956 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_7269fa3e
+2025-06-26 07:36:28,234 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/sva14jt41i652srfxz1f6hmfi
+
+2025-06-26 07:36:28,237 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_0_20250626_073628.json
+2025-06-26 07:36:28,245 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-26 07:36:28,252 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-26 07:36:29,567 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/yo76nxm44jo7nca17w8j6x8fw
+
+2025-06-26 07:36:29,576 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-26 07:36:30,822 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/pbb6058qc5h7mq36cv9j54772
+
+2025-06-26 07:36:30,830 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_7269fa3e
+2025-06-26 07:36:32,076 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/k4ug0zb28516h65gk7k97dhra
+
+2025-06-26 07:36:32,080 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_0_20250626_073632.json
+2025-06-26 07:36:32,091 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-26 07:36:32,099 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-26 07:36:33,440 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/1z3iw3ix1xs5se0xfjd29lb2v
+
+2025-06-26 07:36:33,451 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-26 07:36:34,689 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/85d7511zh7iwpd76mm6mgk72y
+
+2025-06-26 07:36:34,700 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_7269fa3e
+2025-06-26 07:36:35,902 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/o9svwi9fcvntc56euoj65qewn
+
+2025-06-26 07:36:35,906 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_0_20250626_073635.json
+2025-06-26 07:36:35,919 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-26 07:36:35,928 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-26 07:36:37,234 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/bmzo6hydinmy5cbposntdbkct
+
+2025-06-26 07:36:37,247 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-26 07:36:38,485 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/2li29f32nt89mulfr01wk993q
+
+2025-06-26 07:36:38,497 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_7269fa3e
+2025-06-26 07:36:39,739 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/wpf6ybrde5r5mkyg95u82h3fb
+
+2025-06-26 07:36:39,744 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_0_20250626_073639.json
+2025-06-26 07:36:39,758 - evaluation.swe_bench_harness - INFO - Retrieved batch of 3 tasks (indices 0-2)
+2025-06-26 07:36:39,769 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_d16bfe05
+2025-06-26 07:36:41,024 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.2s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/gqcuz0q62gbtp7m9rjjhb1cfx
+
+2025-06-26 07:36:41,051 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_a5917978
+2025-06-26 07:36:42,374 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/h3y57hvxtt4i6dyz64lz869yt
+
+2025-06-26 07:36:42,387 - evaluation.sandbox - INFO - Building Docker image: prometheus_eval_7269fa3e
+2025-06-26 07:36:43,808 - evaluation.sandbox - ERROR - Failed to build image: #0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 4.47kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+Dockerfile:25
+--------------------
+  23 |     # Stage 1: Dependency verification
+  24 |     FROM base AS depcheck
+  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo "# No requirements file" > /tmp/requirements.txt
+  26 |     
+  27 |     # Install and verify dependencies with better error handling
+--------------------
+ERROR: failed to solve: failed to process "\"#": unexpected end of statement while looking for matching double-quote
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/9yb9i7frj6wxcnql8yiyvempk
+
+2025-06-26 07:36:43,812 - evaluation.swe_bench_harness - INFO - Saved batch results to C:\Users\marag\Downloads\Agent\archive\evaluation_results\batch_results_0_20250626_073643.json
+2025-06-26 07:36:43,845 - tools.base_tools - INFO - Read file: agent/agent_core.py (53816 chars)
+2025-06-26 07:36:43,845 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,846 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:36:43,847 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,849 - archive.agent_archive - INFO - Archived agent agent_a379fa8f (generation 0)
+2025-06-26 07:36:43,851 - tools.base_tools - INFO - Read file: agent/agent_core.py (53816 chars)
+2025-06-26 07:36:43,851 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,852 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:36:43,852 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,855 - archive.agent_archive - INFO - Archived agent agent_d541bff6 (generation 0)
+2025-06-26 07:36:43,856 - tools.base_tools - INFO - Read file: agent/agent_core.py (53816 chars)
+2025-06-26 07:36:43,857 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,857 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:36:43,858 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,860 - archive.agent_archive - INFO - Archived agent agent_ec5a0770 (generation 0)
+2025-06-26 07:36:43,861 - tools.base_tools - INFO - Read file: agent/agent_core.py (53816 chars)
+2025-06-26 07:36:43,862 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,863 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:36:43,863 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,865 - archive.agent_archive - INFO - Archived agent agent_bd66c70e (generation 0)
+2025-06-26 07:36:43,867 - tools.base_tools - INFO - Read file: agent/agent_core.py (53816 chars)
+2025-06-26 07:36:43,867 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,868 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:36:43,868 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,871 - archive.agent_archive - INFO - Archived agent agent_b9f8c2cd (generation 0)
+2025-06-26 07:36:43,877 - main - ERROR - Evolution loop failed: name 'random' is not defined
+2025-06-26 07:36:43,879 - main - INFO - Shutting down Prometheus 2.0...
+2025-06-26 07:36:43,882 - tools.base_tools - INFO - Read file: agent/agent_core.py (53816 chars)
+2025-06-26 07:36:43,883 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,883 - tools.base_tools - INFO - Read file: agent/prompts.py (2455 chars)
+2025-06-26 07:36:43,884 - tools.tool_manager - INFO - Executed tool 'read_file' successfully
+2025-06-26 07:36:43,886 - archive.agent_archive - INFO - Archived agent agent_b9f8c2cd (generation 0)

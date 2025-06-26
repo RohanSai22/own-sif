@@ -1,0 +1,105 @@
+{
+  "system_architecture": {
+    "main.py": {
+      "purpose": "Main orchestrator for population-based evolution",
+      "key_functions": [
+        "run_evolution_loop",
+        "_initialize_population", 
+        "_evaluate_population",
+        "_select_parents",
+        "_crossover_and_mutate"
+      ],
+      "modification_risk": "high",
+      "description": "Controls the core Darwinian evolution process, population management, and generational advancement"
+    },
+    "agent/agent_core.py": {
+      "purpose": "Core agent reasoning and problem-solving logic",
+      "key_functions": [
+        "solve_task",
+        "self_reflect_and_improve",
+        "_research_improvements"
+      ],
+      "modification_risk": "medium",
+      "description": "The agent's cognitive core - handles task solving, self-reflection, and improvement generation"
+    },
+    "agent/prompts.py": {
+      "purpose": "Cognitive prompts and reasoning templates",
+      "key_functions": ["SYSTEM_PROMPT", "REFLECTION_PROMPT", "IMPROVEMENT_PROMPT"],
+      "modification_risk": "low",
+      "description": "Defines how the agent thinks and reasons about problems and self-improvement"
+    },
+    "framework/mutator.py": {
+      "purpose": "Code modification and mutation system",
+      "key_functions": ["apply_patch", "_create_new_tool", "_validate_modified_files"],
+      "modification_risk": "medium", 
+      "description": "Handles safe code mutations, tool creation, and validation of changes"
+    },
+    "tools/tool_manager.py": {
+      "purpose": "Dynamic tool management and execution",
+      "key_functions": ["execute_tool", "create_new_tool", "list_tools"],
+      "modification_risk": "low",
+      "description": "Manages the agent's toolkit - both base and dynamically generated tools"
+    },
+    "archive/agent_archive.py": {
+      "purpose": "Generational storage and lineage tracking",
+      "key_functions": ["archive_agent", "_load_archive", "prune_archive"],
+      "modification_risk": "medium",
+      "description": "Maintains the evolutionary history and enables analysis of generational improvements"
+    },
+    "evaluation/swe_bench_harness.py": {
+      "purpose": "Task evaluation and scoring system",
+      "key_functions": ["run_evaluation", "_extract_patch_from_solution"],
+      "modification_risk": "medium",
+      "description": "Evaluates agent performance on SWE-bench tasks and extracts solutions"
+    },
+    "config.py": {
+      "purpose": "System configuration and prompts",
+      "key_functions": ["SystemConfig", "SWE_BENCH_CONFIG", "AGENT_SYSTEM_PROMPT"],
+      "modification_risk": "low",
+      "description": "Central configuration including evolution parameters and cognitive prompts"
+    }
+  },
+  "evolutionary_components": {
+    "selection_algorithm": {
+      "current": "tournament_selection",
+      "location": "main.py:_select_parents",
+      "alternatives": ["rank_selection", "roulette_wheel", "truncation_selection"],
+      "description": "Method for choosing parents for next generation"
+    },
+    "mutation_strategy": {
+      "current": "llm_guided_reflection",
+      "location": "agent/agent_core.py:self_reflect_and_improve",
+      "alternatives": ["random_perturbation", "gradient_based", "novelty_search"],
+      "description": "How the agent generates improvements to its code"
+    },
+    "fitness_evaluation": {
+      "current": "swe_bench_performance",
+      "location": "main.py:_calculate_agent_score",
+      "alternatives": ["multi_objective", "diversity_bonus", "complexity_penalty"],
+      "description": "How agent performance is measured and scored"
+    },
+    "population_management": {
+      "current": "fixed_size_elitism",
+      "location": "main.py:_crossover_and_mutate",
+      "alternatives": ["dynamic_sizing", "island_model", "speciation"],
+      "description": "How the population size and composition is managed"
+    }
+  },
+  "cognitive_architecture": {
+    "reasoning_style": {
+      "current": "step_by_step_reflection",
+      "location": "agent/prompts.py:REFLECTION_PROMPT",
+      "description": "How the agent structures its internal reasoning process"
+    },
+    "knowledge_integration": {
+      "current": "context_based",
+      "location": "agent/agent_core.py:_research_improvements",
+      "description": "How the agent incorporates external knowledge into its reasoning"
+    },
+    "tool_usage_patterns": {
+      "current": "reactive_selection",
+      "location": "agent/agent_core.py:solve_task",
+      "description": "How the agent chooses and combines tools for problem solving"
+    }
+  }
+}

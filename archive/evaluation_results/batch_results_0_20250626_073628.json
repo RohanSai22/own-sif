@@ -1,0 +1,34 @@
+{
+  "batch_start": 0,
+  "batch_size": 3,
+  "timestamp": "20250626_073628",
+  "results": [
+    {
+      "instance_id": "astropy__astropy-12907",
+      "success": false,
+      "score": 0.0,
+      "execution_time": 4.377233028411865,
+      "patch_applied": false,
+      "error_message": "Environment creation failed: #0 building with \"desktop-linux\" instance using docker driver\n\n#1 [internal] load build definition from Dockerfile\n#1 transferring dockerfile: 4.47kB 0.0s done\n#1 DONE 0.1s\n\n#2 [internal] load metadata for docker.io/library/python:3.11-slim\n#2 DONE 2.8s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 2B done\n#3 DONE 0.1s\nDockerfile:25\n--------------------\n  23 |     # Stage 1: Dependency verification\n  24 |     FROM base AS depcheck\n  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo \"# No requirements file\" > /tmp/requirements.txt\n  26 |     \n  27 |     # Install and verify dependencies with better error handling\n--------------------\nERROR: failed to solve: failed to process \"\\\"#\": unexpected end of statement while looking for matching double-quote\n\nView build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/snu7jpxy0u1g8dtlyecs35ccu\n",
+      "test_results_count": 0
+    },
+    {
+      "instance_id": "astropy__astropy-14182",
+      "success": false,
+      "score": 0.0,
+      "execution_time": 1.567542552947998,
+      "patch_applied": false,
+      "error_message": "Environment creation failed: #0 building with \"desktop-linux\" instance using docker driver\n\n#1 [internal] load build definition from Dockerfile\n#1 transferring dockerfile: 4.47kB 0.0s done\n#1 DONE 0.1s\n\n#2 [internal] load metadata for docker.io/library/python:3.11-slim\n#2 DONE 0.7s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 2B done\n#3 DONE 0.1s\nDockerfile:25\n--------------------\n  23 |     # Stage 1: Dependency verification\n  24 |     FROM base AS depcheck\n  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo \"# No requirements file\" > /tmp/requirements.txt\n  26 |     \n  27 |     # Install and verify dependencies with better error handling\n--------------------\nERROR: failed to solve: failed to process \"\\\"#\": unexpected end of statement while looking for matching double-quote\n\nView build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/txn363zoqdbtl2h8q4xs93mrs\n",
+      "test_results_count": 0
+    },
+    {
+      "instance_id": "astropy__astropy-14365",
+      "success": false,
+      "score": 0.0,
+      "execution_time": 1.2848327159881592,
+      "patch_applied": false,
+      "error_message": "Environment creation failed: #0 building with \"desktop-linux\" instance using docker driver\n\n#1 [internal] load build definition from Dockerfile\n#1 transferring dockerfile: 4.47kB 0.0s done\n#1 DONE 0.1s\n\n#2 [internal] load metadata for docker.io/library/python:3.11-slim\n#2 DONE 0.5s\n\n#3 [internal] load .dockerignore\n#3 transferring context: 2B done\n#3 DONE 0.1s\nDockerfile:25\n--------------------\n  23 |     # Stage 1: Dependency verification\n  24 |     FROM base AS depcheck\n  25 | >>> COPY requirements.txt /tmp/requirements.txt 2>/dev/null || echo \"# No requirements file\" > /tmp/requirements.txt\n  26 |     \n  27 |     # Install and verify dependencies with better error handling\n--------------------\nERROR: failed to solve: failed to process \"\\\"#\": unexpected end of statement while looking for matching double-quote\n\nView build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/sva14jt41i652srfxz1f6hmfi\n",
+      "test_results_count": 0
+    }
+  ]
+}
